@@ -1,0 +1,23 @@
+{
+  "name": "easy-fixer",
+  "version": "1.0.0",
+  "description": "This is a monorepo that contains all the apps related to Easy Fixer, which is a platform to connect clients with in-your-location service providers such as handymans.",
+  "homepage": "https://github.com/EasyFixerApp/easy-fixer#readme",
+  "bugs": {
+    "url": "https://github.com/EasyFixerApp/easy-fixer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EasyFixerApp/easy-fixer.git"
+  },
+  "engines": {
+    "node": "22.15.0"
+  },
+  "license": "",
+  "author": "",
+  "type": "module",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

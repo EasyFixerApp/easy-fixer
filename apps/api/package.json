@@ -1,0 +1,21 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "An express app that interacts with the db, serves the API for UI layers, and handle business logic.",
+  "scripts": {
+    "start": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint . --ext .ts"
+  },
+  "type": "module",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.3",
+    "@tsconfig/node22": "^22.0.1",
+    "ts-node-dev": "^2.0.0"
+  }
+}
