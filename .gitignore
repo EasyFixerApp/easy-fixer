@@ -1,54 +1,104 @@
 # Node.js
 node_modules/
+jspm_packages/
+bower_components/
+web_modules/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+.yarn-integrity
+.npm
+.node_repl_history
+
+# Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
 
-# TypeScript
-*.tsbuildinfo
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+.lock-wscript
+
+# Testing and coverage
+lib-cov/
+coverage/
+*.lcov
+.nyc_output
+.grunt
 
 # Build output
 dist/
 build/
+build/Release
 .next/
 out/
+.nuxt/
+.docusaurus/
+.vuepress/dist/
+**/.vitepress/dist/
+**/.vitepress/cache/
+.temp/
 
-# Vercel (if deployed)
-.vercel/
+# Cache
+.cache/
+.parcel-cache/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.eslintcache
+.stylelintcache
+.fusebox/
 
-# VSCode
-.vscode/
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
 
-# Env files
+# Environment variables
 .env
-.env.*  # For env-specific like .env.development, .env.production
+.env.*
+.env.*.local
+
+# Editor specific
+.vscode/
+.vscode-test/
+.tern-port
+
+# OS specific
+.DS_Store
+*.pem
+*~
 
 # Database related
 *.sqlite
 *.sqlite3
 *.db
-*.log
-*.pid
-*.seed
 *.dump
-
-# PostgreSQL dumps or config
 *.psql
 *.pgsql
+.dynamodb/
 
-# MacOS
-.DS_Store
+# Vercel
+.vercel/
 
-# Linux
-*~
+# Serverless
+.serverless/
 
-# Optional: coverage reports
-coverage/
+# Reports and diagnostics
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-# Optional: logs
-logs/
-*.log
+# Packages
+*.tgz
 
-# Optional: Docker
+# Docker
 docker-compose.override.yml
