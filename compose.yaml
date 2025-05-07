@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: "postgres:latest"
+    container_name: "pg-dev"
+    restart: on-failure
+    environment:
+      - "POSTGRES_DB=easy-fixer-db"
+      - "POSTGRES_USER=easy-fixer"
+      - "POSTGRES_PASSWORD=my-password"
+    ports:
+      - "5433:5432"

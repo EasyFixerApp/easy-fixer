@@ -16,24 +16,21 @@
   "author": "Easy Fixer",
   "type": "module",
   "scripts": {
-    "install:all": "npm install && npm run install:api && npm run install:web && npm run setup-nav",
-    "install:api": "cd apps/api && npm install && cd ../..",
-    "install:web": "cd apps/web && npm install && cd ../..",
-    "clean:all": "npm run clean && cd apps/api && npm run clean && cd ../web && npm run clean && cd ../..",
-    "deep-clean:all": "npm run deep-clean && cd apps/api && npm run deep-clean && cd ../web && npm run deep-clean && cd ../..",
-    "clean": "npx rimraf node_modules",
-    "deep-clean": "npx rimraf package-lock.json && npm run clean",
-    "dev": "concurrently \"cd apps/api && npm run dev\" \"cd apps/web && npm run dev\"",
-    "build": "cd apps/api && npm run build && cd ../web && npm run build",
-    "start": "cd apps/api && npm run start && cd ../web && npm run start",
-    "lint": "eslint . && cd apps/api && npm run lint && cd ../web && npm run lint",
-    "lint:fix": "eslint --fix . && cd apps/api && npm run lint:fix && cd ../web && npm run lint:fix",
+    "clean:all": "concurrently \"npm run clean\" \"npm run clean -w api\" \"npm run clean -w web\"",
+    "deep-clean:all": "concurrently \"npm run deep-clean\" \"npm run deep-clean -w api\" \"npm run deep-clean -w web\"",
+    "dev": "concurrently \"npm run dev -w api\" \"npm run dev -w web\"",
+    "build": "concurrently \"npm run build -w api\" \"npm run build -w web\"",
+    "start": "concurrently \"npm run start -w api\" \"npm run start -w web\"",
+    "lint": "concurrently \"npm run lint -w api\" \"npm run lint -w web\"",
+    "lint:fix": "concurrently \"npm run lint:fix -w api\" \"npm run lint:fix -w web\"",
     "test": "cd apps/api && npm run test:run && cd ../web && npm run test:run",
     "test:coverage": "cd apps/api && npm run test:coverage && cd ../web && npm run test:coverage",
     "prepare": "husky",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "setup-nav": "node scripts/setup-nav.js"
+    "setup-nav": "node scripts/setup-nav.js",
+    "clean": "npx rimraf node_modules",
+    "deep-clean": "npx rimraf package-lock.json && npm run clean"
   },
   "imports": {
     "#easy-fixer/*": "./packages/*/src/index.js"
@@ -57,5 +54,9 @@
     "*.{json,yml,yaml,md}": [
       "prettier --check"
     ]
-  }
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }
