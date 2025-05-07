@@ -1,3 +1,5 @@
+
+
 # EasyFixer App
 
 **Smart Service Request Management System**
@@ -9,6 +11,8 @@
 - Craftsmen and companies who can offer such services.
 
 ---
+
+
 
 ## Technologies
 
@@ -62,6 +66,27 @@
 - **Admins:** user management and system performance
 
 ---
+## 🧱 Initial Monorepo Architecture
+
+```
+EasyFixerApp/
+├── apps/               # App-level logic
+│   ├── api/            # Express.js backend (API routes, services, DB logic)
+│   └── web/            # Next.js frontend (React, pages, components)
+│
+├── scripts/            # Node.js setup script
+│   └── setup-nav.js    # Script designed to create shell command shortcuts that help navigate directories in terminal
+│
+├── TO_DELETE/          # Temporary or deprecated code (to be cleaned up)
+│
+├── CONTRIBUTING.md     # Contribution guidelines (PR process, conventions)
+├── README.md           # Project overview and setup instructions
+├── cspell.json         # Spellchecker config for consistent naming
+├── package.json        # Root-level dependencies and monorepo scripts
+├── package-lock.json   # Dependency lockfile for reproducible builds
+```
+
+
 
 ## User Flow
 
@@ -70,3 +95,5 @@
 | **Client** | 1. Guest → **Sign up** (name, email, phone) <br> 2. **Onboard FORM**: role, confirm location manually, add photo (optional), extra info <br> 3. **Create request**: choose category, describe issue, attach images, manually add location <br> 4. **See worker matches** (distance, rating, price) <br> 5. **Pick / invite** a worker → confirm order <br> 6. **Track status** → chat / call if needed <br> 7. **Mark complete & rate** | 1. Log in → **Dashboard** <br> 2. Quick “+ New request” or view active ones <br> 3. Accept / change suggested worker <br> 4. Receive push / email updates |
 | **Worker** | 1. Guest → **Sign up** (email, phone) <br> 2. **Onboard FORM**: role, confirm location manually, add photo (optional), extra info (skills, service radius) <br> 3. Toggle **availability** <br> 4. **Browse / auto-match** jobs in radius <br> 5. **Accept** assigned job <br> 6. In-app map to client → change status <br> 7. **Upload “after” photo**, mark complete → get paid | 1. Log in → **Dashboard** <br> 2. Filter jobs by distance / category <br> 3. Accept or update jobs <br> 4. Review earnings & ratings |
 | **Admin** | 1. Log in → **Admin Panel** <br> 2. Approve worker profiles, monitor job feed <br> 3. Manage users, disputes, categories <br> 4. Edit system settings & banners | 1. Log in → **Dashboards** (KPIs, heat-map) <br> 2. Bulk actions: suspend user, refund, export reports |
+
+
