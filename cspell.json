@@ -6,6 +6,7 @@
   "words": [
     "autoincrement",
     "codepaths",
+    "Promisifies",
     "turbopack"
   ],
   "ignoreWords": [],
