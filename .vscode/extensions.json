@@ -2,6 +2,14 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "ms-vscode.vscode-typescript-next"
+    "streetsidesoftware.code-spell-checker",
+    "ms-vscode.vscode-typescript-next",
+    "yoavbls.pretty-ts-errors",
+    "aaron-bond.better-comments",
+    "42crunch.vscode-openapi",
+    "prisma.prisma",
+    "davidanson.vscode-markdownlint",
+    "mhutchie.git-graph",
+    "redhat.vscode-yaml"
   ]
 }

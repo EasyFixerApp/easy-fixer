@@ -11,7 +11,7 @@ const aliases = {
   "go-root": "",
   "go-api": "apps/api",
   "go-web": "apps/web",
-  // Add more aliases here as needed
+  // * Add more aliases here as needed
 };
 
 /**
