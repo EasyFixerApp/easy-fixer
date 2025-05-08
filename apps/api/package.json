@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "An express app that interacts with the db, serves the API for UI layers, and handle business logic.",
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "tsx --watch --env-file .env src/index.ts",
     "start": "node --env-file .env dist/src/index.js",
     "build": "tsc -p tsconfig.build.json",
@@ -13,11 +14,12 @@
     "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "clean": "npx rimraf node_modules dist",
+    "clean": "npx rimraf node_modules dist **/generated/prisma",
     "deep-clean": "npm run clean && npx rimraf package-lock.json"
   },
   "type": "module",
   "dependencies": {
+    "@prisma/client": "^6.7.0",
     "express": "^5.1.0"
   },
   "imports": {
@@ -27,11 +29,12 @@
     "@eslint/js": "^9.26.0",
     "@tsconfig/node22": "^22.0.1",
     "@types/express": "^5.0.1",
-    "@types/node": "^22.15.3",
+    "@types/node": "^22.15.14",
     "@vitest/coverage-v8": "^3.1.2",
     "@vitest/eslint-plugin": "^1.1.44",
     "eslint": "^9.26.0",
     "eslint-plugin-perfectionist": "^4.12.3",
+    "prisma": "^6.7.0",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.1",

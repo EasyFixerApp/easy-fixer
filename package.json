@@ -25,10 +25,10 @@
     "lint:fix": "concurrently \"npm run lint:fix -w api\" \"npm run lint:fix -w web\"",
     "test": "cd apps/api && npm run test:run && cd ../web && npm run test:run",
     "test:coverage": "cd apps/api && npm run test:coverage && cd ../web && npm run test:coverage",
-    "prepare": "husky",
+    "prepare": "husky && node scripts/setup-nav.js",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "setup-nav": "node scripts/setup-nav.js",
+    "postinstall": "npm run postinstall -w api",
     "clean": "npx rimraf node_modules",
     "deep-clean": "npx rimraf package-lock.json && npm run clean"
   },

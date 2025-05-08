@@ -18,6 +18,7 @@ const aliases = {
  * Main function that orchestrates the setup process
  */
 const main = async () => {
+  console.log("Setting up Easy Fixer navigation shortcuts...");
   const projectRoot = determineProjectRoot();
   const shellConfigFile = determineShellConfigFile();
   const configBlock = generateConfigBlock(projectRoot);
