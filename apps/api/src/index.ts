@@ -24,14 +24,20 @@ const shutdownEvents: string[] = [
   "unhandledRejection",
 ];
 
+let isShuttingDown = false;
+
 shutdownEvents.forEach((event) => {
   process.on(event, () => {
+    if (isShuttingDown) {
+      logger.info(`Received ${event}, but shutdown already in progress...`);
+      return;
+    }
+
     logger.info(`Received ${event}, shutting down gracefully...`);
+    isShuttingDown = true;
     gracefulShutdown();
   });
 });
-
-// ...existing code...
 
 function gracefulShutdown() {
   logger.info("Graceful shutdown initiated");
@@ -41,32 +47,35 @@ function gracefulShutdown() {
     process.exit(1);
   }, 10000); // Force exit after 10 seconds
 
-  (async () => {
-    // Close database connection
-    await retry({
-      fn: prisma.$disconnect.bind(prisma),
-      label: "prisma.$disconnect",
-      retries: 1,
-    });
-    logger.info("Database disconnected successfully");
+  void (async () => {
+    try {
+      // Close database connection
+      await retry({
+        fn: prisma.$disconnect.bind(prisma),
+        label: "prisma.$disconnect",
+        retries: 1,
+      });
+      logger.info("Database disconnected successfully");
 
-    // Close HTTP server (stops accepting new requests)
-    await retry({
-      fn: promisify(server.close.bind(server)),
-      label: "server.close",
-      retries: 1,
-    });
-    logger.info("HTTP server closed successfully");
+      // Close HTTP server (stops accepting new requests)
+      await retry({
+        fn: promisify(server.close.bind(server)),
+        label: "server.close",
+        retries: 1,
+      });
+      logger.info("HTTP server closed successfully");
 
-    // Clear the forced timeout
-    clearTimeout(timeoutId);
+      // Clear the forced timeout
+      clearTimeout(timeoutId);
 
-    // Exit with appropriate code
-    process.exit(0);
-  })().catch((err: unknown) => {
-    logger.error("Error during graceful shutdown:", err);
-    clearTimeout(timeoutId);
-    process.exit(1);
-  });
-  logger.info("Graceful shutdown completed");
+      logger.info("Graceful shutdown completed");
+
+      // Exit with appropriate code
+      process.exit(0);
+    } catch (err) {
+      logger.error("Error during graceful shutdown:", err);
+      clearTimeout(timeoutId);
+      process.exit(1);
+    }
+  })();
 }

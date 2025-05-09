@@ -4,7 +4,7 @@
   "description": "An express app that interacts with the db, serves the API for UI layers, and handle business logic.",
   "scripts": {
     "postinstall": "prisma generate",
-    "dev": "tsx --watch --env-file .env src/index.ts",
+    "dev": "npm run db-dev:up &&tsx --watch --env-file .env src/index.ts",
     "start": "node --env-file .env dist/src/index.js",
     "build": "tsc -p tsconfig.build.json",
     "type-check": "tsc --noEmit",
@@ -15,7 +15,13 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "clean": "npx rimraf node_modules dist **/generated/prisma",
-    "deep-clean": "npm run clean && npx rimraf package-lock.json"
+    "deep-clean": "npm run clean && npx rimraf package-lock.json",
+    "db-dev:up": "docker compose up -d",
+    "db-dev:down": "docker compose down",
+    "db:generate": "prisma generate",
+    "db:studio": "prisma studio",
+    "db:reset": "prisma migrate reset",
+    "db:migrate": "prisma migrate dev"
   },
   "type": "module",
   "dependencies": {
@@ -28,7 +34,7 @@
     "winston-daily-rotate-file": "^5.0.0"
   },
   "imports": {
-    "#*": "./src/*/index.ts"
+    "#*": "./src/*/index.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",

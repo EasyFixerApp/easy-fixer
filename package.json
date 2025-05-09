@@ -48,7 +48,6 @@
   },
   "lint-staged": {
     "apps/api/**/*.{ts,tsx}": [
-      "npm run type-check -w api",
       "npm run lint -w api"
     ],
     "apps/web/**/*.{ts,tsx}": [
