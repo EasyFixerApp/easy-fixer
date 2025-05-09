@@ -1,25 +1,26 @@
 import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
+import tseslint from "@typescript-eslint/eslint-plugin";
+import * as tsparser from "@typescript-eslint/parser";
 import perfectionist from "eslint-plugin-perfectionist";
 import vitest from "@vitest/eslint-plugin";
 
-export default tseslint.config(
+export default [
   {
-    ignores: ["**/*.js", "src/generated/**"],
+    ignores: ["**/*.js"],
   },
   eslint.configs.recommended,
-  tseslint.configs.strictTypeChecked,
-  tseslint.configs.stylisticTypeChecked,
-  perfectionist.configs["recommended-natural"],
   {
+    files: ["**/*.ts", "**/*.tsx"],
     languageOptions: {
+      parser: tsparser,
       parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
+        project: true,
+        tsconfigRootDir: new URL(".", import.meta.url).pathname,
       },
     },
-  },
-  {
+    plugins: {
+      "@typescript-eslint": tseslint,
+    },
     rules: {
       "@typescript-eslint/restrict-template-expressions": [
         "error",
@@ -34,13 +35,23 @@ export default tseslint.config(
     },
   },
   {
+    files: ["**/*.ts", "**/*.tsx"],
+    plugins: {
+      perfectionist,
+    },
+    rules: {
+      ...perfectionist.configs["recommended-natural"].rules,
+    },
+  },
+  {
     files: ["**/*.test.ts", "**/*.spec.ts"],
     plugins: {
       vitest,
     },
     rules: {
-      ...vitest.configs.recommended.rules,
+      "vitest/no-focused-tests": "error",
+      "vitest/no-disabled-tests": "warn",
       "@typescript-eslint/unbound-method": "off",
     },
   },
-);
+];

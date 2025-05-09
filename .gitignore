@@ -76,6 +76,7 @@ next-env.d.ts
 .tern-port
 !.vscode/extensions.json
 !.vscode/settings.json
+.idea/
 
 # OS specific
 .DS_Store
@@ -109,3 +110,5 @@ docker-compose.override.yml
 
 # Prisma
 **/generated/prisma/
+
+# 

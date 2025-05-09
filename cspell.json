@@ -6,8 +6,11 @@
   "words": [
     "autoincrement",
     "codepaths",
+    "Logform",
     "Promisifies",
-    "turbopack"
+    "tsparser",
+    "turbopack",
+    "uuidv"
   ],
   "ignoreWords": [],
   "import": []

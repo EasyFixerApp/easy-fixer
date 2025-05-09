@@ -20,7 +20,12 @@
   "type": "module",
   "dependencies": {
     "@prisma/client": "^6.7.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "http-status-codes": "^2.3.0",
+    "morgan": "^1.10.0",
+    "uuid": "^11.1.0",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "imports": {
     "#*": "./src/*"
@@ -29,7 +34,9 @@
     "@eslint/js": "^9.26.0",
     "@tsconfig/node22": "^22.0.1",
     "@types/express": "^5.0.1",
+    "@types/morgan": "^1.9.9",
     "@types/node": "^22.15.14",
+    "@types/uuid": "^10.0.0",
     "@vitest/coverage-v8": "^3.1.2",
     "@vitest/eslint-plugin": "^1.1.44",
     "eslint": "^9.26.0",

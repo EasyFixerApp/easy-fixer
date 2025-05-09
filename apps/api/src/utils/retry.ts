@@ -1,50 +1,58 @@
+import logger from "#lib/logger.js";
+
 import wait from "./wait.js";
 
-//function type
 type RetryFunction = <T>(options: RetryOptions<T>) => Promise<T>;
 
-//options type
 interface RetryOptions<T> {
   backoffFactor?: number;
   delayMs?: number;
   fn: () => Promise<T>;
+  jitter?: boolean;
   label: string;
   retries?: number;
 }
 
 const retry: RetryFunction = async (options) => {
-  const { backoffFactor = 2, delayMs = 1000, fn, label, retries = 3 } = options;
+  const {
+    backoffFactor = 1,
+    delayMs = 1000,
+    fn,
+    jitter = false,
+    label,
+    retries = 3,
+  } = options;
 
   let lastError: Error | null = null;
-  const sRetries = String(retries + 1);
+  const totalAttempts = retries + 1;
 
-  for (let attempt = 1; attempt <= retries + 1; attempt++) {
-    const sAttempt = String(attempt);
+  for (let attempt = 1; attempt <= totalAttempts; attempt++) {
     try {
       const result = await fn();
-      console.log(`Succeeded on attempt ${sAttempt}/${sRetries} for ${label}`);
-
+      logger.info(
+        `Succeeded on attempt ${attempt}/${totalAttempts} for ${label}`,
+      );
       return result;
     } catch (err) {
       const error = err instanceof Error ? err : new Error(String(err));
       lastError = error;
 
-      console.warn(
-        `Attempt ${sAttempt}/${sRetries} failed for ${label}:`,
+      logger.warn(
+        `Attempt ${attempt}/${totalAttempts} failed for ${label}:`,
         error,
       );
 
-      if (attempt <= retries) {
-        const jitter = Math.random() * 100;
-        const delay = delayMs * Math.pow(backoffFactor, attempt - 1) + jitter;
+      if (attempt < totalAttempts) {
+        const nJitter = jitter ? Math.random() * 100 : 0;
+        const delay = delayMs * Math.pow(backoffFactor, attempt - 1) + nJitter;
 
-        console.log(`Retrying in ${String(delay)}ms...`);
+        logger.info(`Retrying in ${delay.toFixed(0)}ms...`);
         await wait(delay);
       }
     }
   }
 
-  console.error(`All ${sRetries} attempts failed for ${label}`);
+  logger.error(`All ${totalAttempts} attempts failed for ${label}`);
   throw lastError ?? new Error(`All retries failed for ${label}`);
 };
 
