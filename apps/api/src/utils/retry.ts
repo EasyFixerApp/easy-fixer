@@ -1,6 +1,5 @@
-import logger from "#lib/logger.js";
-
-import wait from "./wait.js";
+import { logger } from "#lib";
+import { wait } from "#utils";
 
 type RetryFunction = <T>(options: RetryOptions<T>) => Promise<T>;
 
@@ -13,7 +12,7 @@ interface RetryOptions<T> {
   retries?: number;
 }
 
-const retry: RetryFunction = async (options) => {
+export const retry: RetryFunction = async (options) => {
   const {
     backoffFactor = 1,
     delayMs = 1000,
@@ -55,5 +54,3 @@ const retry: RetryFunction = async (options) => {
   logger.error(`All ${totalAttempts} attempts failed for ${label}`);
   throw lastError ?? new Error(`All retries failed for ${label}`);
 };
-
-export default retry;

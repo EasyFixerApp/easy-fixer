@@ -1,5 +1,4 @@
-import logger from "#lib/logger.js";
-import { log } from "console";
+import { logger } from "#lib";
 import { Request } from "express";
 import morgan from "morgan";
 
@@ -26,7 +25,7 @@ interface LogEntryData {
 /**
  * Stream handler for morgan logs.
  */
-export const logStream = {
+const logStream = {
   write: (message: string) => {
     try {
       const data = JSON.parse(message) as LogEntryData;
@@ -53,7 +52,7 @@ morgan.token("request-id", (req: Request) => req.id);
 /**
  * Custom Morgan logger middleware.
  */
-const morganHttpLogger = morgan(
+export const httpLogger = morgan(
   (tokens, req, res) => {
     const logEntryData: LogEntryData = {
       content_length: tokens.res(req, res, "content-length"),
@@ -77,5 +76,3 @@ const morganHttpLogger = morgan(
   },
   { stream: logStream },
 );
-
-export default morganHttpLogger;

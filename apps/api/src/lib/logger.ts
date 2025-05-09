@@ -25,7 +25,7 @@ const readableFormat = winston.format.combine(
       : "";
 
     metaStr = metaStr.length > 0 ? "\n{" + metaStr + "\n}" : "";
-    return `[${timestamp}] (${level}): ${message}${metaStr}`;
+    return `[${String(timestamp)}] (${level}): ${String(message)}${metaStr}`;
   }),
 );
 
@@ -36,41 +36,42 @@ const consoleTransport = new winston.transports.Console({
 
 // Error logs with handling
 const errorFileTransport = new DailyRotateFile({
-  filename: "logs/error-%DATE%.log",
   datePattern: "YYYY-MM-DD",
-  level: "error",
+  filename: "logs/error-%DATE%.log",
   format: generalFormat,
   handleExceptions: true,
   handleRejections: true,
-  maxSize: "5m",
+  level: "error",
   maxFiles: "14d",
+  maxSize: "5m",
   zippedArchive: true,
 });
 
 // Combined logs (http and above)
 const combinedFileTransport = new DailyRotateFile({
-  filename: "logs/combined-%DATE%.log",
   datePattern: "YYYY-MM-DD",
-  level: "http",
+  filename: "logs/combined-%DATE%.log",
   format: generalFormat,
-  maxSize: "10m",
+  level: "http",
   maxFiles: "3d",
+  maxSize: "10m",
   zippedArchive: true,
 });
 
 // Debug logs
 const debugFileTransport = new DailyRotateFile({
-  filename: "logs/debug-%DATE%.log",
   datePattern: "YYYY-MM-DD",
-  level: "debug",
+  filename: "logs/debug-%DATE%.log",
   format: generalFormat,
-  maxSize: "10m",
+  level: "debug",
   maxFiles: "1d",
+  maxSize: "10m",
   zippedArchive: true,
 });
 
 // Create the logger
-const logger = winston.createLogger({
+export const logger = winston.createLogger({
+  exitOnError: false,
   format: generalFormat,
   level: process.env.LOG_LEVEL ?? "http",
   transports: [
@@ -79,7 +80,4 @@ const logger = winston.createLogger({
     combinedFileTransport,
     debugFileTransport,
   ],
-  exitOnError: false,
 });
-
-export default logger;

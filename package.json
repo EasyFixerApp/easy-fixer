@@ -21,7 +21,7 @@
     "dev": "concurrently \"npm run dev -w api\" \"npm run dev -w web\"",
     "build": "concurrently \"npm run build -w api\" \"npm run build -w web\"",
     "start": "concurrently \"npm run start -w api\" \"npm run start -w web\"",
-    "lint": "concurrently \"npm run lint -w api\" \"npm run lint -w web\"",
+    "lint": "concurrently \"npm run type-check -w api\" \"npm run lint -w api\" \"npm run lint -w web\"",
     "lint:fix": "concurrently \"npm run lint:fix -w api\" \"npm run lint:fix -w web\"",
     "test": "cd apps/api && npm run test:run && cd ../web && npm run test:run",
     "test:coverage": "cd apps/api && npm run test:coverage && cd ../web && npm run test:coverage",

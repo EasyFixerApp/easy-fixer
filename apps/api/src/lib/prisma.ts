@@ -1,11 +1,11 @@
-import logger from "#lib/logger.js";
+import { logger } from "#lib";
 
 import { PrismaClient } from "../generated/prisma/index.js";
 
 // ? prisma has log levels: error, warn, info, query
 // ? log events are emitted to log them again using the app logger
 
-const prisma = new PrismaClient({
+export const prisma = new PrismaClient({
   log: [
     { emit: "event", level: "error" },
     { emit: "event", level: "warn" },
@@ -35,5 +35,3 @@ prisma.$on("query", (e) => {
   };
   logger.debug("Prisma query:", toLog);
 });
-
-export default prisma;

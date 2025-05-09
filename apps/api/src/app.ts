@@ -1,17 +1,18 @@
-import logger from "#lib/logger.js";
-import prisma from "#lib/prisma.js";
-import morganHttpLogger from "#middleware/morganHttpLogger.js";
-import requestIdMiddleware from "#middleware/requestId.js";
+import { logger, prisma } from "#lib";
+import {
+  errorHandler,
+  httpLogger,
+  requestIdGenerator,
+  routeNotFoundHandler,
+} from "#middleware";
 import express from "express";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 
 const app = express();
 
 app.use(express.json());
-
-app.use(requestIdMiddleware);
-
-app.use(morganHttpLogger);
+app.use(requestIdGenerator);
+app.use(httpLogger);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -56,11 +57,7 @@ app.get("/test-db", async (req, res) => {
   });
 });
 
-app.use((err, req, res, next) => {
-  logger.error("", err);
-  res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-    message: ReasonPhrases.INTERNAL_SERVER_ERROR,
-  });
-});
+app.use(routeNotFoundHandler);
+app.use(errorHandler);
 
 export default app;
