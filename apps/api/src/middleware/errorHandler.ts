@@ -1,3 +1,4 @@
+import config from "#config";
 import { AppError } from "#lib";
 import { logger } from "#lib";
 import { ErrorRequestHandler } from "express";
@@ -26,7 +27,7 @@ export const errorHandler: ErrorRequestHandler = (
 
   // For security, don't expose error details in production
   const responseMessage =
-    process.env.NODE_ENV === "production" && !isOperational
+    config.env.NODE_ENV === "production" && !isOperational
       ? ReasonPhrases.INTERNAL_SERVER_ERROR
       : message;
 
@@ -34,6 +35,6 @@ export const errorHandler: ErrorRequestHandler = (
     message: responseMessage,
     requestId: req.id,
     success: false,
-    ...(process.env.NODE_ENV !== "production" && { stack: err.stack }),
+    ...(config.env.NODE_ENV !== "production" && { stack: err.stack }),
   });
 };

@@ -1,3 +1,4 @@
+import config from "#config";
 import winston from "winston";
 import DailyRotateFile from "winston-daily-rotate-file";
 
@@ -73,7 +74,7 @@ const debugFileTransport = new DailyRotateFile({
 export const logger = winston.createLogger({
   exitOnError: false,
   format: generalFormat,
-  level: process.env.LOG_LEVEL ?? "http",
+  level: config.env.LOG_LEVEL,
   transports: [
     consoleTransport,
     errorFileTransport,

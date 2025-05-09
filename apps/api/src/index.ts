@@ -1,10 +1,11 @@
+import config from "#config";
 import { logger, prisma } from "#lib";
 import { retry } from "#utils";
 import { promisify } from "node:util";
 
 import app from "./app.js";
 
-const port = process.env.PORT ?? "9001";
+const port = config.env.PORT;
 
 const server = app.listen(port, () => {
   logger.info(`Server listening on port ${port}`);

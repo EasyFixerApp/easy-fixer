@@ -3,7 +3,7 @@ import { logger } from "#lib";
 import { PrismaClient } from "../generated/prisma/index.js";
 
 // ? prisma has log levels: error, warn, info, query
-// ? log events are emitted to log them again using the app logger
+// ? log are emitted as events to log them again using the app logger
 
 export const prisma = new PrismaClient({
   log: [
