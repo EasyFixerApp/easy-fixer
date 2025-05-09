@@ -47,11 +47,14 @@
     "prettier": "^3.5.3"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint",
-      "prettier --check"
+    "apps/api/**/*.{ts,tsx}": [
+      "npm run type-check -w api",
+      "npm run lint -w api"
     ],
-    "*.{json,yml,yaml,md}": [
+    "apps/web/**/*.{ts,tsx}": [
+      "npm run lint -w web"
+    ],
+    "**/*.{ts,tsx,json,yml,yaml,md}": [
       "prettier --check"
     ]
   },
