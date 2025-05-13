@@ -20,7 +20,8 @@ const readableFormat = winston.format.combine(
             if (typeof val === "string" && val.includes("\n")) {
               return `${key}:\n${val}`;
             }
-            return `  ${key}: ${JSON.stringify(val, null, 2).replace(/\\/g, ``)}`;
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+            return `  ${key}: ${JSON.stringify(val, null, 2)?.replace(/\\/g, ``)}`;
           })
           .join("\n")
       : "";

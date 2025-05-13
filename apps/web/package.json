@@ -6,13 +6,14 @@
     "dev": "next dev --turbopack -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
+    "// // 1": "",
     "lint": "next lint",
-    "clean": "npx rimraf node_modules .next next-env.d.ts",
-    "deep-clean": "npm run clean && npx rimraf package-lock.json",
     "test": "vitest",
     "test:run": "vitest --run",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "// // 2": "",
+    "clean": "npx rimraf .next next-env.d.ts node_modules"
   },
   "dependencies": {
     "next": "15.3.1",

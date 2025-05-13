@@ -1,7 +1,7 @@
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 
 export class AppError extends Error {
-  isOperational: boolean;
+  isOperational: boolean; // Operational errors are expected and can be handled
   statusCode: StatusCodes;
 
   constructor(message: string, statusCode: StatusCodes, isOperational = true) {
@@ -15,6 +15,12 @@ export class AppError extends Error {
 export class BadRequestError extends AppError {
   constructor(message: string = ReasonPhrases.BAD_REQUEST) {
     super(message, StatusCodes.BAD_REQUEST);
+  }
+}
+
+export class DuplicateError extends AppError {
+  constructor(message: string = ReasonPhrases.CONFLICT) {
+    super(message, StatusCodes.CONFLICT);
   }
 }
 

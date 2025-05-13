@@ -1,20 +1,23 @@
 import { logger } from "#lib";
 
-import { PrismaClient } from "../generated/prisma/index.js";
+import {
+  PrismaClient,
+  Prisma as PrismaNamespace,
+} from "../generated/prisma/index.js";
 
 // ? prisma has log levels: error, warn, info, query
 // ? log are emitted as events to log them again using the app logger
 
+export { PrismaNamespace as Prisma };
 export const prisma = new PrismaClient({
   log: [
-    { emit: "event", level: "error" },
     { emit: "event", level: "warn" },
     { emit: "event", level: "info" },
     { emit: "event", level: "query" },
   ],
 });
 
-const prismaEvents = ["error", "warn", "info"] as const;
+const prismaEvents = ["warn", "info"] as const;
 
 prismaEvents.forEach((event) => {
   prisma.$on(event, (e) => {

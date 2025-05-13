@@ -8,7 +8,7 @@ import app from "./app.js";
 const port = config.env.PORT;
 
 const server = app.listen(port, () => {
-  logger.info(`Server listening on port ${port}`);
+  logger.info(`✅ Server listening on port ${port}`);
 });
 
 // Handle uncaught exceptions and unhandled rejections
@@ -30,18 +30,18 @@ let isShuttingDown = false;
 shutdownEvents.forEach((event) => {
   process.on(event, () => {
     if (isShuttingDown) {
-      logger.info(`Received ${event}, but shutdown already in progress...`);
+      logger.error(`Received ${event}, but shutdown already in progress...`);
       return;
     }
 
-    logger.info(`Received ${event}, shutting down gracefully...`);
+    logger.warn(`Received ${event}, shutting down gracefully...`);
     isShuttingDown = true;
     gracefulShutdown();
   });
 });
 
 function gracefulShutdown() {
-  logger.info("Graceful shutdown initiated");
+  logger.warn("Graceful shutdown initiated");
 
   const timeoutId = setTimeout(() => {
     logger.error("Graceful shutdown timed out after 10 seconds, forcing exit");
@@ -69,7 +69,7 @@ function gracefulShutdown() {
       // Clear the forced timeout
       clearTimeout(timeoutId);
 
-      logger.info("Graceful shutdown completed");
+      logger.warn("Graceful shutdown completed");
 
       // Exit with appropriate code
       process.exit(0);

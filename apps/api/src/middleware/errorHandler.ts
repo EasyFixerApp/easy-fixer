@@ -16,25 +16,24 @@ export const errorHandler: ErrorRequestHandler = (
     "statusCode" in err ? err.statusCode : StatusCodes.INTERNAL_SERVER_ERROR;
   const message = err.message || ReasonPhrases.INTERNAL_SERVER_ERROR;
   const isOperational = "isOperational" in err ? err.isOperational : false;
-
   // Log with request ID for traceability
-  logger.error(`[${req.id}] ${message}`, {
-    error: err.stack,
+  logger.error(message, {
+    error: config.env.LOG_LEVEL === "debug" ? err.stack : undefined,
+    id: req.id,
     isOperational,
     method: req.method,
     path: req.path,
   });
 
   // For security, don't expose error details in production
-  const responseMessage =
-    config.env.NODE_ENV === "production" && !isOperational
-      ? ReasonPhrases.INTERNAL_SERVER_ERROR
-      : message;
+  const responseMessage = isOperational
+    ? message
+    : `${ReasonPhrases.INTERNAL_SERVER_ERROR} - Something went wrong. Try again later or contact support using trace ID: ${req.id}`;
 
-  res.status(statusCode).json({
+  const response: ApiResponse = {
+    error: isOperational ? err : undefined,
     message: responseMessage,
-    requestId: req.id,
     success: false,
-    ...(config.env.NODE_ENV !== "production" && { stack: err.stack }),
-  });
+  };
+  res.status(statusCode).json(response);
 };

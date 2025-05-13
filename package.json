@@ -16,21 +16,22 @@
   "author": "Easy Fixer",
   "type": "module",
   "scripts": {
-    "clean:all": "concurrently \"npm run clean\" \"npm run clean -w api\" \"npm run clean -w web\"",
-    "deep-clean:all": "concurrently \"npm run deep-clean\" \"npm run deep-clean -w api\" \"npm run deep-clean -w web\"",
     "dev": "concurrently \"npm run dev -w api\" \"npm run dev -w web\"",
     "build": "concurrently \"npm run build -w api\" \"npm run build -w web\"",
     "start": "concurrently \"npm run start -w api\" \"npm run start -w web\"",
-    "lint": "concurrently \"npm run type-check -w api\" \"npm run lint -w api\" \"npm run lint -w web\"",
+    "// // 1": "",
+    "check-staged": "npx lint-staged && npm run type-check -w api",
+    "lint:check": "concurrently \"npm run type-check -w api\" \"npm run lint -w api\" \"npm run lint -w web\"",
     "lint:fix": "concurrently \"npm run lint:fix -w api\" \"npm run lint:fix -w web\"",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
     "test": "cd apps/api && npm run test:run && cd ../web && npm run test:run",
     "test:coverage": "cd apps/api && npm run test:coverage && cd ../web && npm run test:coverage",
-    "prepare": "husky && node scripts/setup-nav.js",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
+    "// // 2": "",
     "postinstall": "npm run postinstall -w api",
-    "clean": "npx rimraf node_modules",
-    "deep-clean": "npx rimraf package-lock.json && npm run clean"
+    "prepare": "husky && node scripts/setup-nav.js && cd apps/api && touch .env && cd ../web && touch .env && cd ../..",
+    "clean:all": "concurrently \"npx rimraf node_modules\" \"npm run clean -w api\" \"npm run clean -w web\"",
+    "deep-clean:all": "npx rimraf package-lock.json && npm run clean:all"
   },
   "imports": {
     "#easy-fixer/*": "./packages/*/src/index.js"
