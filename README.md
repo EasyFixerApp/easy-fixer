@@ -1,32 +1,73 @@
-# Easy Fixer
-
-<div align="center">
-<img alt="GitHub license" src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge">
-<img alt="Node.js" src="https://img.shields.io/badge/Node.js-v22-green?style=for-the-badge&logo=node.js">
-<img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.8.3-blue?style=for-the-badge&logo=typescript">
-<img alt="Express" src="https://img.shields.io/badge/Express-5.1.0-lightgrey?style=for-the-badge&logo=express">
-<img alt="Next.js" src="https://img.shields.io/badge/Next.js-15.3.1-black?style=for-the-badge&logo=next.js">
-<img alt="React" src="https://img.shields.io/badge/React-19.0.0-61DAFB?style=for-the-badge&logo=react">
-<img alt="Prisma" src="https://img.shields.io/badge/Prisma-6.7.0-2D3748?style=for-the-badge&logo=prisma">
-<img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind-4.0-38B2AC?style=for-the-badge&logo=tailwind-css">
+<div>
+<img alt="GitHub license" src="https://img.shields.io/badge/license-MIT-blue">
+<img alt="Node.js" src="https://img.shields.io/badge/Node.js-v22-green?logo=node.js">
+<img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.8.3-blue?logo=typescript">
+<img alt="Express" src="https://img.shields.io/badge/Express-5.1.0-lightgrey?logo=express">
+<img alt="Next.js" src="https://img.shields.io/badge/Next.js-15.3.1-black?logo=next.js">
+<img alt="React" src="https://img.shields.io/badge/React-19.0.0-61DAFB?logo=react">
+<img alt="Prisma" src="https://img.shields.io/badge/Prisma-6.7.0-2D3748?logo=prisma">
+<img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind-4.0-38B2AC?&logo=tailwind-css">
 </div>
 
-**Smart Service Request Management System**
+# Easy Fixer
 
-Easy Fixer is a platform that connects people who need building repairs with nearby skilled workers. It intelligently matches service requests with available workers based on proximity (within 40km) to ensure quick problem resolution and provide job opportunities for local craftsmen.
+Smart Service Request Management System, Easy Fixer is a platform that connects people who need building repairs with nearby skilled workers. It intelligently matches service requests with available workers based on proximity (within 40km) to ensure quick problem resolution and provide job opportunities for local craftsmen.
 
 ## Table of Contents
 
+- [🚀 Quick Start](#-quick-start)
 - [✨ Features](#-features)
 - [🛠 Tech Stack](#-tech-stack)
 - [🏗 Architecture](#-architecture)
-- [🚀 Quick Start](#-quick-start)
 - [💻 Development](#-development)
 - [🧪 Testing](#-testing)
 - [📚 API Documentation](#-api-documentation)
 - [🔄 User Flows](#-user-flows)
 - [👥 Join the Team](#-join-the-team)
 - [📄 License](#-license)
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Node.js (v22.15.0)** - If you have multiple Node versions, use [nvm](https://github.com/nvm-sh/nvm)
+- **Docker** and Docker Compose (for running development container: PostgreSQL database)
+- **Git**
+
+### Setup Guide
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/EasyFixerApp/easy-fixer.git
+   cd easy-fixer
+   ```
+
+2. **Use correct Node version**
+
+   ```bash
+   # If you have nvm installed
+   nvm use
+   ```
+
+3. **Install dependencies**
+
+   ```bash
+   # Should generate all needed additional files
+   npm install
+   ```
+
+4. **Start development environment**
+   ```bash
+   # This automatically starts the Docker container with PostgreSQL
+   npm run dev
+   ```
+
+That's it! The API will be available at http://localhost:4000 and the web app at http://localhost:3000.
+
+> [!NOTE] 
+> For local development, you might not need to set environment variables. If needed, edit the `.env` files created in `apps/api/` and `apps/web/`.
+
 
 ## ✨ Features
 
@@ -107,46 +148,6 @@ easy-fixer/
 ├── docs/               # Documentation
 └── README.md           # This file
 ```
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- **Node.js (v22.15.0)** - If you have multiple Node versions, use [nvm](https://github.com/nvm-sh/nvm)
-- **Docker** and Docker Compose (for PostgreSQL database)
-- **Git**
-
-### Setup Guide
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/EasyFixerApp/easy-fixer.git
-   cd easy-fixer
-   ```
-
-2. **Use correct Node version** (if needed)
-
-   ```bash
-   # If you have nvm installed
-   nvm use
-   ```
-
-3. **Install dependencies**
-
-   ```bash
-   npm install
-   ```
-
-4. **Start development environment**
-   ```bash
-   # This automatically starts the Docker container with PostgreSQL
-   npm run dev
-   ```
-
-That's it! The API will be available at http://localhost:4000 and the web app at http://localhost:3000.
-
-> **Note:** For local development, you might not need to set environment variables. If needed, edit the `.env` files created in `apps/api/` and `apps/web/`.
 
 ## 💻 Development
 
