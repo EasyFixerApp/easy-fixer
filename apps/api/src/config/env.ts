@@ -10,18 +10,13 @@ import { z } from "zod";
  */
 
 // This check is used to allow leaner behaviors outside of production. Example: providing default values for local development
-const isNotProduction = process.env.NODE_ENV !== "production";
 
 // 1. Define the schema for the environment variable
 export const envSchema = z.object({
-  DATABASE_URL: isNotProduction
-    ? z
-        .string()
-        .url({ message: "Invalid database URL" })
-        .default(
-          "postgresql://easy-fixer:my-password@localhost:5433/easy-fixer-db",
-        )
-    : z.string().url({ message: "Invalid database URL" }),
+  DATABASE_URL: z.string().url({
+    message:
+      'Invalid database URL: if the api is in your local add this DATABASE_URL="postgresql://easy-fixer:my-password@localhost:5433/easy-fixer-db"',
+  }),
 
   HOST: z.string().min(2).default("localhost"),
 
