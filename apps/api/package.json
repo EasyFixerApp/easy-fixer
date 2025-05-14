@@ -23,7 +23,7 @@
     "db:migrate": "prisma migrate dev",
     "docs:generate": "tsx scripts/generate-swagger-files.ts",
     "// // 3": "",
-    "postinstall": "npm run docs:generate && npm run db:generate ",
+    "postinstall": "npm run db:generate && npm run docs:generate",
     "clean": "npx rimraf dist **/generated logs node_modules docs .env .env.*"
   },
   "type": "module",
