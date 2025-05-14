@@ -9,7 +9,7 @@ import path from "path";
 const { files } = config.oas.provide;
 
 // Create directory if it doesn't exist
-const outputDir = path.resolve(files.outputDir);
+const outputDir = path.resolve(files.dir);
 
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
@@ -17,6 +17,7 @@ if (!fs.existsSync(outputDir)) {
 
 // Generate JSON file
 if (files.json.create) {
+  logger.info(`Generating OpenAPI Specification JSON file...`);
   fs.writeFileSync(
     path.join(outputDir, files.json.filename),
     openApiBuilder.getSpecAsJson(),
@@ -26,6 +27,7 @@ if (files.json.create) {
 
 // Generate YAML file
 if (files.yaml.create) {
+  logger.info(`Generating OpenAPI Specification YAML file...`);
   fs.writeFileSync(
     path.join(outputDir, files.yaml.filename),
     openApiBuilder.getSpecAsYaml(),

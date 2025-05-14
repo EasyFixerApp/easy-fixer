@@ -20,8 +20,8 @@
     "build": "concurrently \"npm run build -w api\" \"npm run build -w web\"",
     "start": "concurrently \"npm run start -w api\" \"npm run start -w web\"",
     "// // 1": "",
-    "check-staged": "npx lint-staged && npm run type-check -w api",
-    "lint:check": "concurrently \"npm run type-check -w api\" \"npm run lint -w api\" \"npm run lint -w web\"",
+    "check:staged": "npx lint-staged && npm run check:type -w api",
+    "lint:check": "concurrently \"npm run check:type -w api\" \"npm run lint -w api\" \"npm run lint -w web\"",
     "lint:fix": "concurrently \"npm run lint:fix -w api\" \"npm run lint:fix -w web\"",
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
@@ -31,7 +31,7 @@
     "postinstall": "npm run postinstall -w api",
     "prepare": "husky && node scripts/setup-nav.js && cd apps/api && touch .env && cd ../web && touch .env && cd ../..",
     "clean:all": "concurrently \"npx rimraf node_modules\" \"npm run clean -w api\" \"npm run clean -w web\"",
-    "deep-clean:all": "npx rimraf package-lock.json && npm run clean:all"
+    "clean:all:deep": "npx rimraf package-lock.json && npm run clean:all"
   },
   "imports": {
     "#easy-fixer/*": "./packages/*/src/index.js"

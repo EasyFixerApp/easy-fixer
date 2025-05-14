@@ -1,5 +1,5 @@
 import { openApiBuilder, zodToOpenApi } from "#lib";
-import { createResponseZodSchema } from "#utils";
+import { dataSchemaToOpenApiResponse } from "#utils";
 
 import { createdUser, userCreateInput } from "./model.js";
 
@@ -10,17 +10,15 @@ userCreateRequest.example = {
   name: "Test User",
 };
 
-const userCreateResponse = zodToOpenApi(createResponseZodSchema(createdUser));
-userCreateResponse.description = "User created successfully";
-userCreateResponse.example = {
-  data: {
+const userCreateResponse = dataSchemaToOpenApiResponse({
+  dataSchema: createdUser,
+  description: "User created successfully",
+  example: {
     email: "ha@ho.com",
     id: 1,
     name: "Test User",
   },
-  message: "Created",
-  success: true,
-};
+});
 
 openApiBuilder.addSchema("UserCreateRequest", userCreateRequest);
 openApiBuilder.addSchema("UserCreateResponse", userCreateResponse);

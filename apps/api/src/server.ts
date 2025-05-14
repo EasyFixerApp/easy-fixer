@@ -5,13 +5,23 @@ import { promisify } from "node:util";
 
 import app from "./app.js";
 
-const port = config.env.PORT;
+const { HOST, LOG_LEVEL, NODE_ENV, PORT } = config.env;
+const { path, serve } = config.oas.provide.ui;
 
-const server = app.listen(port, () => {
-  logger.info(`✅ Server listening on port ${port}`);
-});
+logger.info("Starting server...");
+logger.info(`NODE_ENV: ${NODE_ENV} LOG_LEVEL: ${LOG_LEVEL}`);
 
-// Handle uncaught exceptions and unhandled rejections
+const onListen = () => {
+  logger.info(
+    `✅ Server listening on port ${PORT} ${NODE_ENV === "development" ? `at http://${HOST}:${PORT}` : ""}`,
+  );
+  if (serve)
+    logger.info(`✅ Swagger UI available at http://${HOST}:${PORT}${path}`);
+};
+
+const server = app.listen(PORT, onListen);
+
+// log uncaught exceptions and unhandled rejections
 process.on("uncaughtException", logger.error);
 process.on("unhandledRejection", logger.error);
 

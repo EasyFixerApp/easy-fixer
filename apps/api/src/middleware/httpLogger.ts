@@ -31,6 +31,7 @@ const logStream = {
       const data = JSON.parse(message) as LogEntryData;
 
       const { http_version, id, method, response_time, status, url } = data;
+      if (url?.includes("/api-docs/swagger")) return;
 
       const logMessage = `[${id}] ${method} ${url} HTTP/${http_version} status: ${status} duration: ${response_time}`;
 

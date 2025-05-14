@@ -1,12 +1,15 @@
-// ! Do not include any sensitive information in this file
-// * Any interaction with process.env should go through this object
-// ? Why? Centralized, typed, and validated environment configuration
-// ? why? Easier way to know what environment variables are required
-
 import { z } from "zod";
 
-// This check is used to allow leaner behaviors outside of production
-// example: providing default values for local development
+/**
+ * @description
+ * This file is responsible for loading and validating environment variables
+ * Any interaction with process.env should go through this object
+ * Why? Centralized, typed, and validated environment configuration
+ * why? Easier way to know what environment variables are required
+ * ! Do not include any sensitive information in this file
+ */
+
+// This check is used to allow leaner behaviors outside of production. Example: providing default values for local development
 const isNotProduction = process.env.NODE_ENV !== "production";
 
 // 1. Define the schema for the environment variable
@@ -19,6 +22,8 @@ export const envSchema = z.object({
           "postgresql://easy-fixer:my-password@localhost:5433/easy-fixer-db",
         )
     : z.string().url({ message: "Invalid database URL" }),
+
+  HOST: z.string().min(2).default("localhost"),
 
   LOG_LEVEL: z
     .enum(["error", "warn", "info", "http", "verbose", "debug", "silly"])
@@ -48,5 +53,5 @@ const getEnv = () => {
   }
 };
 
-// 4. Export the validated environment variables
+// 4. Get and export the validated environment variables
 export const env: EnvironmentVariables = getEnv();

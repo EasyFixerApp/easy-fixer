@@ -1,4 +1,5 @@
 import config from "#config";
+import util from "util";
 import winston from "winston";
 import DailyRotateFile from "winston-daily-rotate-file";
 
@@ -20,8 +21,7 @@ const readableFormat = winston.format.combine(
             if (typeof val === "string" && val.includes("\n")) {
               return `${key}:\n${val}`;
             }
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-            return `  ${key}: ${JSON.stringify(val, null, 2)?.replace(/\\/g, ``)}`;
+            return `  ${key}: ${util.inspect(val, { colors: true, depth: null })}`;
           })
           .join("\n")
       : "";
@@ -31,12 +31,12 @@ const readableFormat = winston.format.combine(
   }),
 );
 
-// Console log with readable format
+// Log to console
 const consoleTransport = new winston.transports.Console({
   format: readableFormat,
 });
 
-// Error logs with handling
+// Log to a file: error level
 const errorFileTransport = new DailyRotateFile({
   datePattern: "YYYY-MM-DD",
   filename: "logs/error-%DATE%.log",
@@ -49,10 +49,10 @@ const errorFileTransport = new DailyRotateFile({
   zippedArchive: true,
 });
 
-// Combined logs (http and above)
-const combinedFileTransport = new DailyRotateFile({
+// Log to a file: http level
+const httpFileTransport = new DailyRotateFile({
   datePattern: "YYYY-MM-DD",
-  filename: "logs/combined-%DATE%.log",
+  filename: "logs/http-%DATE%.log",
   format: generalFormat,
   level: "http",
   maxFiles: "3d",
@@ -60,7 +60,7 @@ const combinedFileTransport = new DailyRotateFile({
   zippedArchive: true,
 });
 
-// Debug logs
+// Log to a file: debug level
 const debugFileTransport = new DailyRotateFile({
   datePattern: "YYYY-MM-DD",
   filename: "logs/debug-%DATE%.log",
@@ -71,15 +71,15 @@ const debugFileTransport = new DailyRotateFile({
   zippedArchive: true,
 });
 
-// Create the logger
+// Logger instance
 export const logger = winston.createLogger({
   exitOnError: false,
   format: generalFormat,
-  level: config.env.LOG_LEVEL,
+  level: config.env.LOG_LEVEL, // used in transports where level is not set
   transports: [
     consoleTransport,
     errorFileTransport,
-    combinedFileTransport,
+    httpFileTransport,
     debugFileTransport,
   ],
 });

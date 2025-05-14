@@ -12,6 +12,19 @@ interface RetryOptions<T> {
   retries?: number;
 }
 
+/**
+ * @description
+ * Retry a function with exponential backoff and optional jitter.
+ *
+ * @param options - The options for the retry function.
+ * @param options.fn - The function to retry. It should return a Promise.
+ * @param options.retries - The number of retries to attempt. Default is 3.
+ * @param options.delayMs - The initial delay in milliseconds before the first retry. Default is 1000ms.
+ * @param options.backoffFactor - The factor by which to increase the delay on each retry. Default is 1.
+ * @param options.jitter - Whether to add random jitter to the delay. Default is false.
+ * @param options.label - A label for logging purposes.
+ * @returns A Promise that resolves with the result of the function or rejects with an error after all retries have failed.
+ */
 export const retry: RetryFunction = async (options) => {
   const {
     backoffFactor = 1,

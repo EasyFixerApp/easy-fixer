@@ -1,4 +1,3 @@
-import config from "#config";
 import { AppError } from "#lib";
 import { logger } from "#lib";
 import { ErrorRequestHandler } from "express";
@@ -11,29 +10,48 @@ export const errorHandler: ErrorRequestHandler = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next,
 ) => {
-  // Default values
-  const statusCode =
-    "statusCode" in err ? err.statusCode : StatusCodes.INTERNAL_SERVER_ERROR;
+  // Determine if this is one of our custom application errors
+  const isAppError = err instanceof AppError;
+
+  // Extract error details based on error type
+  const statusCode = isAppError
+    ? err.statusCode
+    : StatusCodes.INTERNAL_SERVER_ERROR;
   const message = err.message || ReasonPhrases.INTERNAL_SERVER_ERROR;
-  const isOperational = "isOperational" in err ? err.isOperational : false;
-  // Log with request ID for traceability
-  logger.error(message, {
-    error: config.env.LOG_LEVEL === "debug" ? err.stack : undefined,
+  const isOperational = isAppError ? err.isOperational : false;
+
+  // * Log with request ID for traceability
+  const errorTracingDetails = {
     id: req.id,
     isOperational,
     method: req.method,
     path: req.path,
-  });
+    // eslint-disable-next-line perfectionist/sort-objects
+    err,
+  };
 
-  // For security, don't expose error details in production
-  const responseMessage = isOperational
-    ? message
-    : `${ReasonPhrases.INTERNAL_SERVER_ERROR} - Something went wrong. Try again later or contact support using trace ID: ${req.id}`;
+  if (isAppError && isOperational) {
+    logger.warn(`[${req.id}] ${message}`);
+    logger.debug(message, errorTracingDetails);
+  } else logger.error(message, errorTracingDetails);
 
+  // Construct response object
   const response: ApiResponse = {
-    error: isOperational ? err : undefined,
-    message: responseMessage,
+    message: "",
     success: false,
   };
+  // For security, don't expose error details in production
+  response.message = isOperational
+    ? isAppError && err.clientMessage
+      ? err.clientMessage
+      : message
+    : `${ReasonPhrases.INTERNAL_SERVER_ERROR} - Something went wrong. Try again later or contact support using trace ID: ${req.id}`;
+
+  // * Add additional error info if appropriate
+  if (isOperational && isAppError && err.info) {
+    response.error = err.info.issues;
+  }
+
+  // Send response
   res.status(statusCode).json(response);
 };

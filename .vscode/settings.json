@@ -1,4 +1,14 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "cSpell.words": [
+    "anatine",
+    "autoincrement",
+    "codepaths",
+    "Logform",
+    "Promisifies",
+    "tsparser",
+    "turbopack",
+    "uuidv"
+  ]
 }
