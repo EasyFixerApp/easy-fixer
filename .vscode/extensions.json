@@ -1,15 +1,16 @@
 {
   "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "streetsidesoftware.code-spell-checker",
-    "ms-vscode.vscode-typescript-next",
-    "yoavbls.pretty-ts-errors",
-    "aaron-bond.better-comments",
     "42crunch.vscode-openapi",
-    "prisma.prisma",
+    "aaron-bond.better-comments",
     "davidanson.vscode-markdownlint",
+    "dbaeumer.vscode-eslint",
+    "donjayamanne.githistory",
+    "esbenp.prettier-vscode",
     "mhutchie.git-graph",
-    "redhat.vscode-yaml"
+    "ms-vscode.vscode-typescript-next",
+    "prisma.prisma",
+    "redhat.vscode-yaml",
+    "streetsidesoftware.code-spell-checker",
+    "yoavbls.pretty-ts-errors"
   ]
 }
