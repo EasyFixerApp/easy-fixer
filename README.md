@@ -1,92 +1,248 @@
-# EasyFixer App
+# Easy Fixer
+
+<div align="center">
+<img alt="GitHub license" src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge">
+<img alt="Node.js" src="https://img.shields.io/badge/Node.js-v22-green?style=for-the-badge&logo=node.js">
+<img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5.8.3-blue?style=for-the-badge&logo=typescript">
+<img alt="Express" src="https://img.shields.io/badge/Express-5.1.0-lightgrey?style=for-the-badge&logo=express">
+<img alt="Next.js" src="https://img.shields.io/badge/Next.js-15.3.1-black?style=for-the-badge&logo=next.js">
+<img alt="React" src="https://img.shields.io/badge/React-19.0.0-61DAFB?style=for-the-badge&logo=react">
+<img alt="Prisma" src="https://img.shields.io/badge/Prisma-6.7.0-2D3748?style=for-the-badge&logo=prisma">
+<img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind-4.0-38B2AC?style=for-the-badge&logo=tailwind-css">
+</div>
 
 **Smart Service Request Management System**
-(Why smart? → It detects your location and alerts the nearest available worker within 40 km)
-**Main Aim:** To help people solve building problems quickly while providing nearby workers with job opportunities and a way to earn money.  
-**Target Audience:**
 
-- People who have problems in their buildings and need repairs.
-- Craftsmen and companies who can offer such services.
+Easy Fixer is a platform that connects people who need building repairs with nearby skilled workers. It intelligently matches service requests with available workers based on proximity (within 40km) to ensure quick problem resolution and provide job opportunities for local craftsmen.
 
----
+## Table of Contents
 
-## Technologies
+- [✨ Features](#-features)
+- [🛠 Tech Stack](#-tech-stack)
+- [🏗 Architecture](#-architecture)
+- [🚀 Quick Start](#-quick-start)
+- [💻 Development](#-development)
+- [🧪 Testing](#-testing)
+- [📚 API Documentation](#-api-documentation)
+- [🔄 User Flows](#-user-flows)
+- [👥 Join the Team](#-join-the-team)
+- [📄 License](#-license)
 
-_(React + Next.js + Vercel / MongoDB Atlas / Firebase Auth)_
+## ✨ Features
 
-- **UI:** Next.js / Vercel
-- **Backend:** Next.js (API Routes) + Express.js for business logic
-- **Database:** Supabase
-- **Hosting:** Free tier on Vercel, Render, or Railway
-- **Version Control:** GitHub (team collaboration)
-- **Planning / Brainstorming:** Notion
-- **UI Design:** Figma
-- **Authentication:** Supabase Auth — free for up to 10,000 monthly active users with built-in Google OAuth
-- **Image Storage:** Cloudinary — free plan (~25 GB bandwidth / 25 credits), use signed uploads via API for security
+### For Clients
 
----
+- **Create service requests** with problem descriptions and optional images
+- **Find nearby workers** based on your location and service needs
+- **Track request status** from creation to completion
+- **Rate and review** workers after service completion
 
-## Minimum MVP Functionality
+### For Workers
 
-### 1. Access & Identity
+- **Set your availability and service radius**
+- **Browse and apply for jobs** in your area
+- **Get automatically matched** to relevant service requests
+- **Track earnings and manage your profile**
 
-- **User authentication/registration** (people and workers)
-- **Profile management:** edit profile, set real location (updated on each login), upload photo
+### For Admins
 
-### 2. Finding Help
+- **Monitor system performance** with comprehensive dashboards
+- **Manage users, disputes and service categories**
+- **Access analytics and reporting tools**
 
-- **Keyword search** (problem or service) — shows nearest workers on a map
-- **Auto-suggest nearest workers** when a request is created
+## 🛠 Tech Stack
 
-### 3. Creating & Matching Requests
+### Frontend
 
-- **Create service request** with problem description and optional image
-- **Accept or reject suggested worker** and confirm the order
-- **Map view of available workers** for direct selection
+- **Next.js 15** - React framework with server-side rendering
+- **React 19** - UI library
+- **Tailwind CSS 4** - Utility-first CSS framework
+- **TypeScript** - Type safety and developer experience
 
-### 4. Worker Tools
+### Backend
 
-- **Browse, filter, and apply for jobs**
-- **Commit to an assigned job**
-- **Contact requester** (phone, email, or in-app message)
+- **Express.js 5** - Node.js web application framework
+- **Prisma 6** - Next-generation ORM for Node.js and TypeScript
+- **PostgreSQL** - Relational database (via Docker)
+- **Zod** - TypeScript-first schema validation
+- **Swagger/OpenAPI** - API documentation
 
-### 5. Progress Tracking
+### Testing & Quality
 
-- **Status flow:** new → in progress → completed
-- **Notifications:** new assignment, status change, job updates
+- **Vitest** - Testing framework
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **Husky** - Git hooks
 
-### 6. Insight Dashboards
+## 🏗 Architecture
 
-- **Clients:** active and past requests
-- **Workers:** job history and earnings
-- **Admins:** user management and system performance
-
----
-
-## 🧱 Initial Monorepo Architecture
+This project uses a monorepo structure to organize multiple applications:
 
 ```
-EasyFixerApp/
-├── apps/               # App-level logic
-│   ├── api/            # Express.js backend (API routes, services, DB logic)
-│   └── web/            # Next.js frontend (React, pages, components)
-│
-├── scripts/            # Node.js setup script
-│   └── setup-nav.js    # Script designed to create shell command shortcuts that help navigate directories in terminal
-│
-├── TO_DELETE/          # Temporary or deprecated code (to be cleaned up)
-│
-├── CONTRIBUTING.md     # Contribution guidelines (PR process, conventions)
-├── README.md           # Project overview and setup instructions
-├── cspell.json         # Spellchecker config for consistent naming
-├── package.json        # Root-level dependencies and monorepo scripts
-├── package-lock.json   # Dependency lockfile for reproducible builds
+easy-fixer/
+├── apps/               # Application code
+│   ├── api/            # Express.js backend API
+│   │   ├── prisma/     # Database schema and migrations
+│   │   ├── scripts/    # API utility scripts
+│   │   ├── src/        # Source code
+│   │   │   ├── config/     # Application configuration
+│   │   │   ├── controllers/# Route handlers
+│   │   │   ├── middleware/ # Express middleware
+│   │   │   ├── models/     # Data models
+│   │   │   ├── routes/     # API route definitions
+│   │   │   ├── services/   # Business logic
+│   │   │   ├── types/      # TypeScript type definitions
+│   │   │   ├── utils/      # Utility functions
+│   │   │   └── server.ts   # Entry point
+│   │   └── tests/      # API tests
+│   └── web/            # Next.js frontend
+│       ├── app/        # App router components and pages
+│       ├── components/ # Reusable React components
+│       ├── hooks/      # Custom React hooks
+│       ├── lib/        # Utility functions
+│       ├── public/     # Static assets
+│       └── types/      # TypeScript type definitions
+├── packages/           # Shared code packages
+├── scripts/            # Helper scripts
+├── docs/               # Documentation
+└── README.md           # This file
 ```
 
-## User Flow
+## 🚀 Quick Start
 
-| Role       | First-time Path                                                                                                                                                                                                                                                                                                                                                                                                                         | Returning Path                                                                                                                                            |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Client** | 1. Guest → **Sign up** (name, email, phone) <br> 2. **Onboard FORM**: role, confirm location manually, add photo (optional), extra info <br> 3. **Create request**: choose category, describe issue, attach images, manually add location <br> 4. **See worker matches** (distance, rating, price) <br> 5. **Pick / invite** a worker → confirm order <br> 6. **Track status** → chat / call if needed <br> 7. **Mark complete & rate** | 1. Log in → **Dashboard** <br> 2. Quick “+ New request” or view active ones <br> 3. Accept / change suggested worker <br> 4. Receive push / email updates |
-| **Worker** | 1. Guest → **Sign up** (email, phone) <br> 2. **Onboard FORM**: role, confirm location manually, add photo (optional), extra info (skills, service radius) <br> 3. Toggle **availability** <br> 4. **Browse / auto-match** jobs in radius <br> 5. **Accept** assigned job <br> 6. In-app map to client → change status <br> 7. **Upload “after” photo**, mark complete → get paid                                                       | 1. Log in → **Dashboard** <br> 2. Filter jobs by distance / category <br> 3. Accept or update jobs <br> 4. Review earnings & ratings                      |
-| **Admin**  | 1. Log in → **Admin Panel** <br> 2. Approve worker profiles, monitor job feed <br> 3. Manage users, disputes, categories <br> 4. Edit system settings & banners                                                                                                                                                                                                                                                                         | 1. Log in → **Dashboards** (KPIs, heat-map) <br> 2. Bulk actions: suspend user, refund, export reports                                                    |
+### Prerequisites
+
+- **Node.js (v22.15.0)** - If you have multiple Node versions, use [nvm](https://github.com/nvm-sh/nvm)
+- **Docker** and Docker Compose (for PostgreSQL database)
+- **Git**
+
+### Setup Guide
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/EasyFixerApp/easy-fixer.git
+   cd easy-fixer
+   ```
+
+2. **Use correct Node version** (if needed)
+
+   ```bash
+   # If you have nvm installed
+   nvm use
+   ```
+
+3. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+4. **Start development environment**
+   ```bash
+   # This automatically starts the Docker container with PostgreSQL
+   npm run dev
+   ```
+
+That's it! The API will be available at http://localhost:4000 and the web app at http://localhost:3000.
+
+> **Note:** For local development, you might not need to set environment variables. If needed, edit the `.env` files created in `apps/api/` and `apps/web/`.
+
+## 💻 Development
+
+**Running commands in workspaces:**
+
+Most commands can be run in specific workspaces by adding `-w` followed by the workspace name:
+
+```bash
+# Run a command in the API workspace
+npm run [command] -w api
+
+# Run a command in the web workspace
+npm run [command] -w web
+```
+
+**Main development commands:**
+
+```bash
+# Start both frontend and backend (automatically starts Docker)
+npm run dev
+
+# Start only the API (automatically starts Docker)
+npm run dev -w api
+
+# Start only the web app
+npm run dev -w web
+```
+
+### Code Quality
+
+```bash
+# Run linting checks
+npm run lint:check
+
+# Fix linting issues
+npm run lint:fix
+
+# Check code formatting
+npm run format:check
+
+# Fix formatting issues
+npm run format:fix
+```
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+```
+
+## 📚 API Documentation
+
+API documentation is automatically generated using Swagger/OpenAPI. After starting the API server, you can access the API documentation at:
+
+```
+http://localhost:4000/api-docs
+```
+
+You can also generate the documentation manually:
+
+```bash
+npm run docs:generate -w api
+```
+
+## 🔄 User Flows
+
+### Client Flow
+
+1. Sign up and complete onboarding
+2. Create service request with details and location
+3. Review and select from matched workers
+4. Track service progress
+5. Mark as complete and provide rating
+
+### Worker Flow
+
+1. Sign up and create professional profile
+2. Set availability and service area
+3. Browse jobs or receive match notifications
+4. Accept and complete assignments
+5. Upload completion evidence and receive payment
+
+### Admin Flow
+
+1. Monitor service activity through dashboards
+2. Manage users and handle disputes
+3. Configure system settings and categories
+
+## 👥 Join the Team
+
+This is not an open source project, but we welcome new team members! If you're interested in joining the development team, please contact the current developers.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
