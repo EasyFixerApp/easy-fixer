@@ -30,9 +30,11 @@ Smart Service Request Management System, Easy Fixer is a platform that connects 
 
 ### Prerequisites
 
-- **Node.js (v22.15.0)** - If you have multiple Node versions, use [nvm](https://github.com/nvm-sh/nvm)
-- **Docker** and Docker Compose (for running development container: PostgreSQL database)
-- **Git**
+- `Node.js (v22.15.0)` - for easier version management use `nvm`
+- `Docker` and `Docker Compose` (for running development container: PostgreSQL database)
+- `Git`
+
+Click to download: [node](https://nodejs.org/en/download), [nvm](https://github.com/nvm-sh/nvm), [docker](https://docs.docker.com/get-docker/), [git](https://git-scm.com/downloads)
 
 ### Setup Guide
 
@@ -67,6 +69,21 @@ That's it! The API will be available at http://localhost:4000 and the web app at
 
 > [!NOTE] 
 > For local development, you might not need to set environment variables. If needed, edit the `.env` files created in `apps/api/` and `apps/web/`.
+
+
+## 📚 API Documentation
+
+API documentation (OAS3) is automatically generated. After starting the local API server, you can access the API documentation at:
+
+```bash
+http://localhost:4000/api-docs
+```
+or
+
+```bash
+code ./apps/api/docs/oas.json
+code ./apps/api/docs/oas.yaml
+```
 
 
 ## ✨ Features
@@ -200,20 +217,6 @@ npm test
 
 # Run tests with coverage
 npm run test:coverage
-```
-
-## 📚 API Documentation
-
-API documentation is automatically generated using Swagger/OpenAPI. After starting the API server, you can access the API documentation at:
-
-```
-http://localhost:4000/api-docs
-```
-
-You can also generate the documentation manually:
-
-```bash
-npm run docs:generate -w api
 ```
 
 ## 🔄 User Flows
