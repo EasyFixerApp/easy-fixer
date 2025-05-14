@@ -1,1 +1,1 @@
-npx run check-staged
+npx run check:staged
