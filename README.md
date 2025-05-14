@@ -18,7 +18,7 @@ Smart Service Request Management System, Easy Fixer is a platform that connects 
 - [🚀 Quick Start](#-quick-start)
 - [✨ Features](#-features)
 - [🛠 Tech Stack](#-tech-stack)
-- [🏗 Architecture](#-architecture)
+- [🏗 Project Structure](#-project-structure)
 - [💻 Development](#-development)
 - [🧪 Testing](#-testing)
 - [📚 API Documentation](#-api-documentation)
@@ -60,31 +60,16 @@ Click to download: [node](https://nodejs.org/en/download), [nvm](https://github.
    ```
 
 4. **Start development environment**
+
    ```bash
    # This automatically starts the Docker container with PostgreSQL
    npm run dev
    ```
 
-That's it! The API will be available at http://localhost:4000 and the web app at http://localhost:3000.
+That's it! The API will be available at <http://localhost:4000> and the web app at <http://localhost:3000>.
 
-> [!NOTE] 
+> [!NOTE]
 > For local development, you might not need to set environment variables. If needed, edit the `.env` files created in `apps/api/` and `apps/web/`.
-
-
-## 📚 API Documentation
-
-API documentation (OAS3) is automatically generated. After starting the local API server, you can access the API documentation at:
-
-```bash
-http://localhost:4000/api-docs
-```
-or
-
-```bash
-code ./apps/api/docs/oas.json
-code ./apps/api/docs/oas.yaml
-```
-
 
 ## ✨ Features
 
@@ -132,38 +117,76 @@ code ./apps/api/docs/oas.yaml
 - **Prettier** - Code formatting
 - **Husky** - Git hooks
 
-## 🏗 Architecture
+## 🏗 Project Structure
 
-This project uses a monorepo structure to organize multiple applications:
+This project uses a monorepo structure organized into three main sections:
+
+### Root Structure
 
 ```
 easy-fixer/
-├── apps/               # Application code
-│   ├── api/            # Express.js backend API
-│   │   ├── prisma/     # Database schema and migrations
-│   │   ├── scripts/    # API utility scripts
-│   │   ├── src/        # Source code
-│   │   │   ├── config/     # Application configuration
-│   │   │   ├── controllers/# Route handlers
-│   │   │   ├── middleware/ # Express middleware
-│   │   │   ├── models/     # Data models
-│   │   │   ├── routes/     # API route definitions
-│   │   │   ├── services/   # Business logic
-│   │   │   ├── types/      # TypeScript type definitions
-│   │   │   ├── utils/      # Utility functions
-│   │   │   └── server.ts   # Entry point
-│   │   └── tests/      # API tests
-│   └── web/            # Next.js frontend
-│       ├── app/        # App router components and pages
-│       ├── components/ # Reusable React components
-│       ├── hooks/      # Custom React hooks
-│       ├── lib/        # Utility functions
-│       ├── public/     # Static assets
-│       └── types/      # TypeScript type definitions
+├── apps/               # Application code (API and web)
+├── docs/               # Project documentation
 ├── packages/           # Shared code packages
 ├── scripts/            # Helper scripts
-├── docs/               # Documentation
+├── package.json        # Root package configuration
+├── .nvmrc              # Node version specification
+├── .npmrc              # NPM configuration
 └── README.md           # This file
+```
+
+### API Structure
+
+```
+apps/api/
+├── docs/               # API documentation files
+├── prisma/             # Database schema and migrations
+│   └── schema.prisma   # Prisma schema definition
+├── scripts/            # API utility scripts
+├── src/                # Source code
+│   ├── app.ts          # Express app setup
+│   ├── config/         # Application configuration
+│   ├── features/       # API features by domain
+│   │   ├── user/       # User-related features
+│   │   │   ├── controllers/ # Request handlers
+│   │   │   ├── model.ts     # Data model
+│   │   │   ├── repo.ts      # Data access
+│   │   │   ├── router.ts    # Routes
+│   │   │   └── service.ts   # Business logic
+│   │   └── v1.router.ts # API version router
+│   ├── lib/            # Core libraries
+│   ├── middleware/     # Express middleware
+│   ├── types/          # TypeScript type definitions
+│   ├── utils/          # Utility functions
+│   └── server.ts       # Entry point
+├── tests/              # Test files
+│   ├── integration/    # Integration tests
+│   └── unit/           # Unit tests
+├── compose.yaml        # Docker Compose configuration
+└── package.json        # API package configuration
+```
+
+### Web Structure
+
+```
+apps/web/
+├── public/             # Static assets
+├── src/                # Source code
+│   ├── app/            # Next.js app router
+│   │   ├── layout.tsx  # Root layout
+│   │   └── page.tsx    # Home page
+│   ├── components/     # Reusable components
+│   ├── context/        # React context providers
+│   ├── hooks/          # Custom React hooks
+│   ├── lib/            # Core libraries
+│   ├── services/       # External service integrations
+│   ├── styles/         # CSS and styling
+│   ├── types/          # TypeScript type definitions
+│   └── utils/          # Utility functions
+├── tests/              # Test files
+│   ├── integration/    # Integration tests
+│   └── unit/           # Unit tests
+└── package.json        # Web package configuration
 ```
 
 ## 💻 Development
@@ -173,11 +196,22 @@ easy-fixer/
 Most commands can be run in specific workspaces by adding `-w` followed by the workspace name:
 
 ```bash
+# Run a command in the workspace
+npm run [command]
+
 # Run a command in the API workspace
 npm run [command] -w api
 
 # Run a command in the web workspace
 npm run [command] -w web
+```
+
+For moving between the app directories you can use the following installed commands:
+
+```bash
+go-root
+go-api
+go-web
 ```
 
 **Main development commands:**
@@ -196,6 +230,9 @@ npm run dev -w web
 ### Code Quality
 
 ```bash
+# Check the staged files
+npm run check:staged # will run automatically on a commit
+
 # Run linting checks
 npm run lint:check
 
@@ -217,6 +254,21 @@ npm test
 
 # Run tests with coverage
 npm run test:coverage
+```
+
+## 📚 API Documentation
+
+API documentation (OAS3) is automatically generated. After starting the local API server, you can access the API documentation at:
+
+```bash
+http://localhost:4000/api-docs
+```
+
+or
+
+```bash
+code ./apps/api/docs/oas.json
+code ./apps/api/docs/oas.yaml
 ```
 
 ## 🔄 User Flows
