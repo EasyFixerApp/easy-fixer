@@ -1,6 +1,5 @@
 > [!NOTE]
-> This is an **optimal** ADR template. Not every field needs to appear in every record—what matters most is that you **capture the key decision**, **why** it was made, and any **critical trade-offs**.  
-> Fields without \* are optional—omit them if they don’t add value for simple decisions.
+> This is an **optimal** ADR template. Not every field needs to appear in every record—what matters most is that you **capture the key decision**, **why** it was made, and any **critical trade-offs**. > Fields without \* are optional—omit them if they don’t add value for simple decisions. 
 
 # ID: Title
 
