@@ -16,13 +16,13 @@ Smart Service Request Management System, Easy Fixer is a platform that connects 
 ## Table of Contents
 
 - [🚀 Quick Start](#-quick-start)
+- [📚 API Documentation](#-api-documentation)
 - [✨ Features](#-features)
 - [🛠 Tech Stack](#-tech-stack)
 - [🏗 Project Structure](#-project-structure)
 - [🏛 Architecture Principles](#-architecture-principles)
 - [💻 Development](#-development)
 - [🧪 Testing](#-testing)
-- [📚 API Documentation](#-api-documentation)
 - [🔄 User Flows](#-user-flows)
 - [👥 Join the Team](#-join-the-team)
 - [📄 License](#-license)
@@ -70,7 +70,22 @@ Click to download: [node](https://nodejs.org/en/download), [nvm](https://github.
 That's it! The API will be available at <http://localhost:4000> and the web app at <http://localhost:3000>.
 
 > [!NOTE]
-> For local development, you might not need to set environment variables. If needed, edit the `.env` files created in `apps/api/` and `apps/web/`.
+> For running locally, you might not need to set environment variables. If needed, edit the `.env` files created in `apps/api/` and `apps/web/`.
+
+## 📚 API Documentation
+
+API documentation (OAS3) is automatically generated. After starting the local API server, you can access the API documentation at:
+
+```bash
+http://localhost:4000/api-docs
+```
+
+or
+
+```bash
+code ./apps/api/docs/oas.json
+code ./apps/api/docs/oas.yaml
+```
 
 ## ✨ Features
 
@@ -278,8 +293,6 @@ The project follows a **feature-first** architecture (also known as vertical sli
     ├── router.ts       # exports userRouter but named differently, context is enough.
   ```
 
-  Also, naming a file that `export userRouter` from `features/user` as `router.ts` is better than `userRouter.ts`.
-
 - **Tests**: test folders structure should reflect the structure in src as much as possible.
 
 This architecture promotes:
@@ -354,21 +367,6 @@ npm test
 
 # Run tests with coverage
 npm run test:coverage
-```
-
-## 📚 API Documentation
-
-API documentation (OAS3) is automatically generated. After starting the local API server, you can access the API documentation at:
-
-```bash
-http://localhost:4000/api-docs
-```
-
-or
-
-```bash
-code ./apps/api/docs/oas.json
-code ./apps/api/docs/oas.yaml
 ```
 
 ## 🔄 User Flows
