@@ -3,9 +3,9 @@
 
 # ID: Title
 
-**Status\***: [Proposed | Accepted | Deprecated | Superseded]  
-**Date\***: YYYY-MM-DD <!-- The date when this decision was made or proposed -->
-**Author(s)**: <!-- for future reference and clarification -->
+- **Status\***: [Proposed | Accepted | Deprecated | Superseded]  
+- **Date\***: YYYY-MM-DD <!-- The date when this decision was made or proposed -->
+- **Author(s)**: <!-- for future reference and clarification -->
 
 <!-- **Stakeholders**: Team A, Team B -->
 
@@ -51,15 +51,18 @@ Describe the resulting context after applying the decision, including both posit
 
 ---
 
+
 ## Example ADR
+
 
 ---
 
 # ADR 001: Adopt GraphQL for API Layer
 
-**Status**: Accepted  
-**Date**: 2023-06-15  
-**Author(s)**: Jane Smith, Alex Johnson
+- **Status**: Accepted  
+- **Date**: 2023-06-15  
+- **Author(s)**: Jane Smith, Alex Johnson
+- **Stakeholders**: Frontend team, API team
 
 ## Context
 
