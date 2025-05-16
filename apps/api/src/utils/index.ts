@@ -1,3 +1,3 @@
-export * from "./response.utils.js";
+export * from "./response.js";
 export * from "./retry.js";
 export * from "./wait.js";

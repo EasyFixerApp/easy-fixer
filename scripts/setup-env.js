@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import fs from 'fs/promises';
-import path from 'path';
+import fs from "fs/promises";
+import path from "path";
 
 const API_ENV_CONTENT = `DATABASE_URL="postgresql://easy-fixer:my-password@localhost:5433/easy-fixer-db" \nPORT=4000
 `;
@@ -13,25 +13,25 @@ const WEB_ENV_CONTENT = `API_URL="http://localhost:4000/api/v1" \nPORT=3000
  * Main function to create environment files
  */
 const main = async () => {
-  console.log('Setting up environment files for Easy Fixer apps...');
-  console.log('This only works for DEVELOPMENT mode.');
+  console.log("Setting up environment files for Easy Fixer apps...");
+  console.log("This only works for DEVELOPMENT mode.");
 
   try {
     const projectRoot = process.cwd();
-    const apiDir = path.join(projectRoot, 'apps/api');
-    const webDir = path.join(projectRoot, 'apps/web');
+    const apiDir = path.join(projectRoot, "apps/api");
+    const webDir = path.join(projectRoot, "apps/web");
 
     // Create API .env file
     await createEnvFile(apiDir, API_ENV_CONTENT);
-    console.log('✅ Created .env file in API directory');
+    console.log("✅ Created .env file in API directory");
 
     // Create Web .env file
     await createEnvFile(webDir, WEB_ENV_CONTENT);
-    console.log('✅ Created .env file in Web directory');
+    console.log("✅ Created .env file in Web directory");
 
-    console.log('\n🎉 Environment setup complete!');
+    console.log("\n🎉 Environment setup complete!");
   } catch (error) {
-    console.error('Error setting up environment files:', error);
+    console.error("Error setting up environment files:", error);
     process.exit(1);
   }
 };
@@ -40,7 +40,7 @@ const main = async () => {
  * Create an .env file in the specified directory with the given content
  */
 const createEnvFile = async (directory, content) => {
-  const envFilePath = path.join(directory, '.env');
+  const envFilePath = path.join(directory, ".env");
 
   try {
     // Check if directory exists
@@ -62,7 +62,7 @@ const createEnvFile = async (directory, content) => {
   }
 
   // Write the new .env file
-  await fs.writeFile(envFilePath, content, 'utf8');
+  await fs.writeFile(envFilePath, content, "utf8");
 };
 
 // Run the script

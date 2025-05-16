@@ -19,6 +19,7 @@ Smart Service Request Management System, Easy Fixer is a platform that connects 
 - [✨ Features](#-features)
 - [🛠 Tech Stack](#-tech-stack)
 - [🏗 Project Structure](#-project-structure)
+- [🏛 Architecture Principles](#-architecture-principles)
 - [💻 Development](#-development)
 - [🧪 Testing](#-testing)
 - [📚 API Documentation](#-api-documentation)
@@ -123,10 +124,10 @@ This project uses a monorepo structure organized into three main sections:
 
 ### Root Structure
 
-```
+```plaintext
 easy-fixer/
 ├── apps/               # Application code (API and web)
-├── docs/               # Project documentation
+├── docs/               # Project documentation, standards, ...
 ├── packages/           # Shared code packages
 ├── scripts/            # Helper scripts
 ├── package.json        # Root package configuration
@@ -137,57 +138,156 @@ easy-fixer/
 
 ### API Structure
 
-```
+```plaintext
 apps/api/
-├── docs/               # API documentation files
+├── docs/               # API documentation files, e.g. generated oas.yaml, erd.svg
 ├── prisma/             # Database schema and migrations
-│   └── schema.prisma   # Prisma schema definition
-├── scripts/            # API utility scripts
 ├── src/                # Source code
-│   ├── app.ts          # Express app setup
-│   ├── config/         # Application configuration
-│   ├── features/       # API features by domain
-│   │   ├── user/       # User-related features
+│   ├── features/       # API features by domain or feature
+│   │   ├── example/    # Example: user-related files
+│   │   │   │             These sub-modules can be removed or extended as needed
 │   │   │   ├── controllers/ # Request handlers
-│   │   │   ├── model.ts     # Data model
-│   │   │   ├── repo.ts      # Data access
-│   │   │   ├── router.ts    # Routes
-│   │   │   └── service.ts   # Business logic
-│   │   └── v1.router.ts # API version router
-│   ├── lib/            # Core libraries
-│   ├── middleware/     # Express middleware
-│   ├── types/          # TypeScript type definitions
-│   ├── utils/          # Utility functions
+│   │   │   └── services/    # Business logic and db interactions
+│   │   │   ├── repo/        # Data access, a facade between Prisma and the service
+│   │   │   ├── models/      # Data model and DTOs, validation schemas, mappers
+│   │   │   ├── middleware/  # Middlewares specific to this feature
+│   │   │   ├── router/      # Routes and their OAS docs as YAML JSDoc
+│   │   │   ├── docs/        # Support for docs such as Response OAS schemas
+│   │   └── v1.router.ts     # API version router that includes all features routes
+│   ├── middleware/     # Global or app middlewares
+│   ├── lib/            # Reusable core modules. e.g. db client, logger instance
+│   ├── utils/          # Small, pure, generic helper functions
+│   ├── types/          # TypeScript global type definitions
+│   ├── config/         # Application configuration
+│   ├── app.ts          # Express app setup
 │   └── server.ts       # Entry point
 ├── tests/              # Test files
 │   ├── integration/    # Integration tests
 │   └── unit/           # Unit tests
+│       └── src/features/user/services/
+│           └── crud.test.ts
+├── scripts/            # API utility scripts
+├── logs/               # Generated logs
 ├── compose.yaml        # Docker Compose configuration
 └── package.json        # API package configuration
 ```
 
 ### Web Structure
 
-```
+See next project structure [docs](https://nextjs.org/docs/app/getting-started/project-structure)
+
+```plaintext
 apps/web/
 ├── public/             # Static assets
 ├── src/                # Source code
 │   ├── app/            # Next.js app router
-│   │   ├── layout.tsx  # Root layout
-│   │   └── page.tsx    # Home page
-│   ├── components/     # Reusable components
-│   ├── context/        # React context providers
-│   ├── hooks/          # Custom React hooks
-│   ├── lib/            # Core libraries
+│   │   ├── layout.tsx      # Root layout (shared UI for all pages)
+│   │   ├── template.tsx    # Root template (preserves state on navigation)
+│   │   ├── not-found.tsx   # Custom 404 page
+│   │   ├── loading.tsx     # Global loading UI
+│   │   ├── error.tsx       # Global error handler
+│   │   ├── page.tsx        # Landing page content
+│   │   ├── dashboard/      # Dashboard feature
+│   │   │    ├── page.tsx           # Dashboard main content
+│   │   │    ├── layout.tsx         # Dashboard layout wrapper
+│   │   │    ├── components/        # Dashboard-specific components
+│   │   │    ├── hooks/             # Dashboard-specific hooks
+│   │   │    └── utils/             # Dashboard-specific utilities
+│   │   ├── [slug]/         # Dynamic route example
+│   │   ├── (group)/        # Route grouping example (doesn't affect URL)
+│   │   │    ├── login/     # Auth login route
+│   │   │    └── logout/    # Auth logout route
+│   │   └── _private/       # Private folder (not included in routing)
+│   ├── components/     # Shared reusable components
+│   ├── hooks/          # Shared React hooks
+│   ├── lib/            # Core libraries & utilities
 │   ├── services/       # External service integrations
-│   ├── styles/         # CSS and styling
-│   ├── types/          # TypeScript type definitions
-│   └── utils/          # Utility functions
+│   │   └── api/        # API client for backend communication
+│   ├── styles/         # Global styling & theme configuration
+│   ├── types/          # TypeScript global type definitions
+│   ├── store/          # Global state management (if needed)
+│   └── utils/          # Shared utility functions
 ├── tests/              # Test files
-│   ├── integration/    # Integration tests
-│   └── unit/           # Unit tests
 └── package.json        # Web package configuration
 ```
+
+## 🏛 Architecture Principles
+
+### System Architecture
+
+While this project uses a monorepo for easier development, it's designed with distributed and decoupled implementation in mind. The architecture follows a clear separation of concerns:
+
+- **Web App (Next.js)**: Responsible solely for generating the view layer for end users, whether through server-side rendering (SSR), client-side rendering (CSR), or static site generation (SSG).
+
+- **API (Express)**: Handles all business logic and controls the flow between (end users/client apps) and the database. It exposes a RESTful interface that any client can consume.
+
+This architectural decision provides several advantages:
+
+- **Platform Flexibility**: New client applications (mobile apps, desktop apps) can be added without duplicating business logic
+- **Scalability**: Each component can be scaled independently based on its specific needs
+- **Maintainability**: Clear boundaries make the codebase easier to understand and modify
+- **Deployment Options**: Components can be deployed separately if needed as the system grows
+
+The project pragmatically encourages modularity and discourages tight coupling between components, leading to improved developer experience, easier maintenance, and better scalability as the application grows.
+
+### Core Organization Principles
+
+The project follows a **feature-first** architecture (also known as vertical slicing or modular architecture) that prioritizes organizing code by domain features rather than technical layers.
+
+- **Features over Technical Layers**: Code is primarily organized by feature/domain, then by technical concern within each feature
+
+  ```plaintext
+  # Express Example
+  features/user/(controller.ts, service.ts, repo.ts)
+
+  # Next.js Example
+  app/home/(page.tsx, components/, hooks/)
+  ```
+
+- **Cross-Cutting Concerns Placement**: Common utilities and shared code are placed at the closest appropriate level to their consumers
+
+  ```plaintext
+  # Global middleware
+  src/middleware/
+  # Feature-specific middleware
+  src/features/user/middleware/
+
+  # Global components
+  src/components/
+  # Feature-specific components
+  src/app/home/components/
+  ```
+
+- **Folder Structure Pragmatism**: Folders are only created when multiple related files exist
+
+  ```plaintext
+  # Single controller
+  features/user/controller.ts
+  # Multiple controllers
+  features/user/controllers/auth.ts, profile.ts
+  ```
+
+- **Single Responsibility Files**: Each file should generally have one main export named after the file. This is pragmatic—not a rigid rule. For instance, Small, closely related functionalities can be grouped in one file as long as the file remains focused and manageable.
+
+  ```plaintext
+  errorHandler.ts       # exports function errorHandler
+
+  # example exception
+  features/
+  └── user/
+    ├── router.ts       # exports userRouter but named differently, context is enough.
+  ```
+
+  Also, naming a file that `export userRouter` from `features/user` as `router.ts` is better than `userRouter.ts`.
+
+- **Tests**: test folders structure should reflect the structure in src as much as possible.
+
+This architecture promotes:
+
+- 🔍 Better discoverability - related code stays together
+- 🔄 Easier feature iteration - changes to a feature affect only its directory
+- 🧩 Clear boundaries - dependencies between features are explicit
+- 🚀 Improved maintainability - new team members can understand isolated features more quickly
 
 ## 💻 Development
 
