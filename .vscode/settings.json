@@ -6,6 +6,7 @@
     "autoincrement",
     "codepaths",
     "Logform",
+    "nvmrc",
     "Promisifies",
     "tsparser",
     "turbopack",

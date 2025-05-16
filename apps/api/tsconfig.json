@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./",
+    "removeComments": true,
     "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": ["**/*.ts"],
