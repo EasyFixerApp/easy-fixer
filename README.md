@@ -11,7 +11,7 @@
 
 # Easy Fixer
 
-Smart Service Request Management System, Easy Fixer is a platform that connects people who need building repairs with nearby skilled workers. It intelligently matches service requests with available workers based on proximity (within 40km) to ensure quick problem resolution and provide job opportunities for local craftsmen.
+Smart Service Request Management System, Easy Fixer is a platform that connects people who need building repairs with nearby skilled workers. It intelligently matches service requests with available workers based on proximity (within 40km) to ensure quick problem resolution and provide job opportunities for local craftsmen..
 
 ## Table of Contents
 
