@@ -1,0 +1,20 @@
+{
+  "folders": [
+    {
+      "path": "../",
+    },
+    {
+      "path": "../apps/api/src",
+      "name": "API",
+    },
+    {
+      "path": "../apps/web/src",
+      "name": "WEB",
+    },
+    {
+      "path": "../packages/shared",
+      "name": "SHARED",
+    },
+  ],
+  "settings": {},
+}

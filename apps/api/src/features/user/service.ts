@@ -1,10 +1,10 @@
 import { DuplicateError } from "#lib";
+import { User } from "easy-fixer-shared";
 
-import { UserCreateInput } from "./model.js";
 import userRepo from "./repo.js";
 
 export const userService = {
-  createUser: async (data: UserCreateInput) => {
+  createUser: async (data: User.Create.Request) => {
     const isExist = await userRepo.existByEmail(data.email);
 
     if (isExist)
