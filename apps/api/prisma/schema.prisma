@@ -19,18 +19,16 @@ datasource db {
 }
 
 model User {
-  id           String             @id @default(uuid())
-  name         String
-  email        String             @unique
-  password     String
-  phone        String?
-  role         Role               @default(USER)
-  reports      Report[]           @relation("UserReports")
-  assignments  ReportAssignment[] @relation("WorkerAssignments")
-  createdAt    DateTime           @default(now())
+  id            String             @id
+  name          String?
+  phone         String?
+  role          Role               @default(USER)
+  reports       Report[]           @relation("UserReports")
+  assignments   ReportAssignment[] @relation("WorkerAssignments")
+  createdAt     DateTime           @default(now())
 
-  userProfile  UserProfile?       @relation("UserToUserProfile")
-  workerProfile WorkerProfile?    @relation("UserToWorkerProfile")
+  userProfile   UserProfile?       @relation("UserToUserProfile")
+  workerProfile WorkerProfile?     @relation("UserToWorkerProfile")
 }
 
 model UserProfile {
@@ -91,4 +89,3 @@ enum ReportStatus {
   COMPLETED
   REJECTED
 }
-
