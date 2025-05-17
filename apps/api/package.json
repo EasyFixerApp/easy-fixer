@@ -26,7 +26,7 @@
     "db:migrate": "prisma migrate",
     "docs:generate": "tsx --env-file .env scripts/generate-swagger-files.ts",
     "// // 3": "",
-    "setup:db": "npm run db:generate && npm run db:dev:up && npm run db:init && npm run docs:generate",
+    "setup:db": "npm run db:generate && npm run db:dev:up && npm run db:init",
     "clean": "npx rimraf dist **/generated logs node_modules .env .env.*"
   },
   "type": "module",
