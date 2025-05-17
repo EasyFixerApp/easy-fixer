@@ -26,7 +26,7 @@
     "lint:fix": "concurrently \"npm run lint:fix -w api\" \"npm run lint:fix -w web\"",
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
-    "test": "cd apps/api && npm run test:run && cd ../web && npm run test:run",
+    "test": "npm run test -w api && npm run test -w web",
     "test:coverage": "cd apps/api && npm run test:coverage && cd ../web && npm run test:coverage",
     "// // 2": "",
     "preinstall": "npm run db:dev:down -w api && npm run db:dev:up -w api",
