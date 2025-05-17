@@ -4,8 +4,13 @@
     "outDir": "./dist",
     "rootDir": "./",
     "removeComments": true,
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "typeRoots": [
+      "../../node_modules/@types",
+      "../../node_modules/",
+      "./src/types"
+    ],
+    "types": ["vitest/globals", "node"]
   },
   "include": ["**/*.ts"],
-  "exclude": ["dist", "**/*.types.ts", "**/*.test.ts", "**/*.spec.ts"]
+  "exclude": ["dist", "**/*.types.ts"]
 }
