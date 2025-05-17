@@ -18,28 +18,77 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  authorId  Int
-  User      User     @relation(fields: [authorId], references: [id])
-}
-
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  userId Int     @unique
-  User   User    @relation(fields: [userId], references: [id])
-}
-
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  Post    Post[]
-  Profile Profile?
+  id           String             @id @default(uuid())
+  name         String
+  email        String             @unique
+  password     String
+  phone        String?
+  role         Role               @default(USER)
+  reports      Report[]           @relation("UserReports")
+  assignments  ReportAssignment[] @relation("WorkerAssignments")
+  createdAt    DateTime           @default(now())
+
+  userProfile  UserProfile?       @relation("UserToUserProfile")
+  workerProfile WorkerProfile?    @relation("UserToWorkerProfile")
 }
+
+model UserProfile {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  address     String?
+  bio         String?
+  user        User     @relation("UserToUserProfile", fields: [userId], references: [id])
+}
+
+model WorkerProfile {
+  id              String   @id @default(uuid())
+  workerId        String   @unique
+  address         String?
+  profilePic      String?
+  experience      String?
+  certifications  String?
+  bio             String?
+  user            User     @relation("UserToWorkerProfile", fields: [workerId], references: [id])
+}
+
+model Report {
+  id          String          @id @default(uuid())
+  title       String
+  description String
+  status      ReportStatus    @default(PENDING)
+  location    String?
+  latitude    Float?
+  longitude   Float?
+  image       String?
+  userId      String
+  user        User            @relation("UserReports", fields: [userId], references: [id])
+  assignment  ReportAssignment?
+  createdAt   DateTime        @default(now())
+}
+
+model ReportAssignment {
+  id          String          @id @default(uuid())
+  reportId    String          @unique
+  workerId    String
+  assignedAt  DateTime        @default(now())
+  accepted    Boolean         @default(false)
+  completedAt DateTime?
+  report      Report          @relation(fields: [reportId], references: [id])
+  worker      User            @relation("WorkerAssignments", fields: [workerId], references: [id])
+}
+
+enum Role {
+  USER
+  ADMIN
+  WORKER
+}
+
+enum ReportStatus {
+  PENDING
+  ASSIGNED
+  IN_PROGRESS
+  COMPLETED
+  REJECTED
+}
+
