@@ -17,21 +17,5 @@ const userRepo = {
     });
     return !!user;
   },
-
-  findByIdWithPosts: async (id: number) => {
-    const user = await prisma.user.findUnique({
-      include: {
-        Post: true,
-      },
-      omit: {
-        id: true,
-      },
-      where: {
-        id,
-      },
-    });
-
-    return user;
-  },
 };
 export default userRepo;

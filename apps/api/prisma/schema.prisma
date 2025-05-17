@@ -19,6 +19,13 @@ datasource db {
 }
 
 model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
+}
+
+
+model RealUser {
   id           String             @id @default(uuid())
   name         String
   email        String             @unique
@@ -38,7 +45,7 @@ model UserProfile {
   userId      String   @unique
   address     String?
   bio         String?
-  user        User     @relation("UserToUserProfile", fields: [userId], references: [id])
+  user        RealUser     @relation("UserToUserProfile", fields: [userId], references: [id])
 }
 
 model WorkerProfile {
@@ -49,7 +56,7 @@ model WorkerProfile {
   experience      String?
   certifications  String?
   bio             String?
-  user            User     @relation("UserToWorkerProfile", fields: [workerId], references: [id])
+  user            RealUser     @relation("UserToWorkerProfile", fields: [workerId], references: [id])
 }
 
 model Report {
@@ -62,7 +69,7 @@ model Report {
   longitude   Float?
   image       String?
   userId      String
-  user        User            @relation("UserReports", fields: [userId], references: [id])
+  user        RealUser            @relation("UserReports", fields: [userId], references: [id])
   assignment  ReportAssignment?
   createdAt   DateTime        @default(now())
 }
@@ -75,7 +82,7 @@ model ReportAssignment {
   accepted    Boolean         @default(false)
   completedAt DateTime?
   report      Report          @relation(fields: [reportId], references: [id])
-  worker      User            @relation("WorkerAssignments", fields: [workerId], references: [id])
+  worker      RealUser            @relation("WorkerAssignments", fields: [workerId], references: [id])
 }
 
 enum Role {
