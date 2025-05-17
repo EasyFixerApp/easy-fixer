@@ -8,10 +8,11 @@ generator client {
   importFileExtension    = "ts"
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-  output   = "../docs/erd.svg"
-}
+// only uncomment to generate the ERD in local and then comment again
+// generator erd {
+//   provider = "prisma-erd-generator"
+//   output   = "../docs/erd.svg"
+// }
 
 datasource db {
   provider = "postgresql"
