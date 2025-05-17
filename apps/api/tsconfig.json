@@ -5,6 +5,6 @@
     "rootDir": "./",
     "typeRoots": ["./node_modules/@types", "./src/types"]
   },
-  "include": ["**/*.ts"],
-  "exclude": ["dist", "**/*.types.ts", "**/*.test.ts", "**/*.spec.ts"]
+  "include": ["src/**/*.ts", "src/tests/**/*.ts", "scripts/**/*.ts"],
+  "exclude": ["dist", "**/*.types.ts"]
 }

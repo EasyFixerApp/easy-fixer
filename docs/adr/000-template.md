@@ -1,9 +1,9 @@
 > [!NOTE]
-> This is an **optimal** ADR template. Not every field needs to appear in every record—what matters most is that you **capture the key decision**, **why** it was made, and any **critical trade-offs**. > Fields without \* are optional—omit them if they don’t add value for simple decisions. 
+> This is an **optimal** ADR template. Not every field needs to appear in every record—what matters most is that you **capture the key decision**, **why** it was made, and any **critical trade-offs**. > Fields without \* are optional—omit them if they don’t add value for simple decisions.
 
 # ID: Title
 
-- **Status\***: [Proposed | Accepted | Deprecated | Superseded]  
+- **Status\***: [Proposed | Accepted | Deprecated | Superseded]
 - **Date\***: YYYY-MM-DD <!-- The date when this decision was made or proposed -->
 - **Author(s)**: <!-- for future reference and clarification -->
 
@@ -51,16 +51,14 @@ Describe the resulting context after applying the decision, including both posit
 
 ---
 
-
 ## Example ADR
-
 
 ---
 
 # ADR 001: Adopt GraphQL for API Layer
 
-- **Status**: Accepted  
-- **Date**: 2023-06-15  
+- **Status**: Accepted
+- **Date**: 2023-06-15
 - **Author(s)**: Jane Smith, Alex Johnson
 - **Stakeholders**: Frontend team, API team
 
