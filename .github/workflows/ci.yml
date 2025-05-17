@@ -37,7 +37,7 @@ jobs:
         run: npm run format:check
 
       - name: Upload node_modules for downstream build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: node-modules
           path: node_modules
@@ -58,7 +58,7 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Download node_modules artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: node-modules
           path: node_modules
