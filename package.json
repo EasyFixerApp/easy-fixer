@@ -18,7 +18,8 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run dev -w api\" \"npm run dev -w web\"",
-    "build": "concurrently \"npm run build -w api\" \"npm run build -w web\"",
+    "build:setup": "npm run build -w easy-fixer-shared && npm run db:generate -w api",
+    "build": "npm run build:setup && concurrently \"npm run build -w api\" \"npm run build -w web\"",
     "start": "concurrently \"npm run start -w api\" \"npm run start -w web\"",
     "// // 1": "",
     "check:staged": "npx lint-staged && npm run check:type -w api",
