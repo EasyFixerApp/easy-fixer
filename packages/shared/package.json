@@ -1,0 +1,21 @@
+{
+  "name": "easy-fixer-shared",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Shared TypeScript types and validation schemas for Easy Fixer applications",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "postinstall": "npm run build",
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "zod": "^3.22.0"
+  },
+  "peerDependencies": {
+    "zod": "^3.22.0"
+  }
+}

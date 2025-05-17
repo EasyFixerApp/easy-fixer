@@ -1,14 +1,14 @@
 import { ValidationError } from "#lib";
 import { createResponseJson } from "#utils";
+import { user } from "easy-fixer-shared";
 import { RequestHandler } from "express";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 
-import { userCreateInput } from "../model.js";
 import userService from "../service.js";
 
 export const createUser: RequestHandler = async (req, res) => {
   // Validate request body
-  const parsedBody = userCreateInput.safeParse(req.body);
+  const parsedBody = user.toCreate.schema.safeParse(req.body);
 
   if (!parsedBody.success) throw new ValidationError(parsedBody.error);
 

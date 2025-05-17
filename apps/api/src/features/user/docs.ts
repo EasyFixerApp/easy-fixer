@@ -1,9 +1,8 @@
 import { openApiBuilder, zodToOpenApi } from "#lib";
 import { dataSchemaToOpenApiResponse } from "#utils";
+import { user } from "easy-fixer-shared";
 
-import { createdUser, userCreateInput } from "./model.js";
-
-const userCreateRequest = zodToOpenApi(userCreateInput);
+const userCreateRequest = zodToOpenApi(user.toCreate.schema);
 userCreateRequest.description = "Required data to create a user";
 userCreateRequest.example = {
   email: "ha@ho.com",
@@ -11,7 +10,7 @@ userCreateRequest.example = {
 };
 
 const userCreateResponse = dataSchemaToOpenApiResponse({
-  dataSchema: createdUser,
+  dataSchema: user.created.schema,
   description: "User created successfully",
   example: {
     email: "ha@ho.com",
