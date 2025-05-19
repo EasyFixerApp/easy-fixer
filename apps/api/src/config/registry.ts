@@ -6,5 +6,6 @@
  * example use-case: calling openApiBuilder.addSchema() as a top-level statement
  */
 
+import "../features/health/docs.js";
 import "../features/user/docs.js";
 import "./env.js";

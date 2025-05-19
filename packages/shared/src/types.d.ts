@@ -5,6 +5,10 @@ declare global {
     message: string;
     success: boolean;
   }
+
+  type Prettify<T> = {
+    [K in keyof T]: T[K];
+  } & {};
 }
 
 export {};

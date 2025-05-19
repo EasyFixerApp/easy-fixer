@@ -19,6 +19,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model HealthCheck {
+  id        Int   @id @default(autoincrement())
+  email     String?
+  timestamp DateTime @default(now())
+}
+
 model User {
   id      Int      @id @default(autoincrement())
   email   String   @unique
