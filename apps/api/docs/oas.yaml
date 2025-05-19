@@ -29,6 +29,14 @@ paths:
                 $ref: "#/components/schemas/UserCreateResponse"
         "400":
           description: Bad request - validation error
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Health check endpoint
+      responses:
+        "200":
+          description: Service is healthy
 components:
   schemas:
     UserCreateRequest:
