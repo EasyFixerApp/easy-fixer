@@ -1,12 +1,5 @@
-import { zodToOpenApi } from "#lib";
 import { ReasonPhrases } from "http-status-codes";
 import z from "zod";
-
-interface DataSchemaToOpenApiResponse {
-  dataSchema: z.ZodType;
-  description: string;
-  example: unknown;
-}
 
 /**
  * @description
@@ -55,26 +48,3 @@ export function createResponseSchema(dataSchema: z.ZodType) {
     success: z.boolean().default(true),
   });
 }
-
-/**
- * Convert a Zod schema to an OpenAPI response schema.
- * @param args - The arguments for the response schema.
- * @param args.dataSchema - The Zod schema for the data object.
- * @param args.description - The description of the response.
- * @param args.example - An example of the dataSchema and not the whole response.
- * @returns An OpenAPI response schema.
- */
-export const dataSchemaToOpenApiResponse = (
-  args: DataSchemaToOpenApiResponse,
-) => {
-  const zodResponseSchema = createResponseSchema(args.dataSchema);
-  const response = zodToOpenApi(zodResponseSchema);
-  response.description = args.description;
-  response.example = {
-    data: args.example,
-    message: "OK",
-    success: true,
-  };
-
-  return response;
-};

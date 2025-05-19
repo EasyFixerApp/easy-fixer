@@ -9,7 +9,41 @@ servers:
   - description: Production Server
     url: ""
 paths:
-  /users/create:
+  /health/check:
+    get:
+      tags:
+        - Health
+      summary: Check if the server and database are running
+      responses:
+        "200":
+          description: Both server and database are operational
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthCheckResponse"
+        "500":
+          description: Server or database is not operational
+  /health/write-delete:
+    post:
+      tags:
+        - Health
+      summary: Check database write and delete operations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HealthWriteDeleteRequest"
+      responses:
+        "200":
+          description: Database write and delete operations are working correctly
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthWriteDeleteResponse"
+        "500":
+          description: Database operations failed
+  /v1/users/create:
     post:
       tags:
         - Users
@@ -29,16 +63,104 @@ paths:
                 $ref: "#/components/schemas/UserCreateResponse"
         "400":
           description: Bad request - validation error
-  /health:
-    get:
-      tags:
-        - Health
-      summary: Health check endpoint
-      responses:
-        "200":
-          description: Service is healthy
 components:
   schemas:
+    HealthCheckResponse:
+      type:
+        - object
+      properties:
+        data:
+          type:
+            - object
+          properties:
+            db:
+              type:
+                - string
+              enum:
+                - up
+                - down
+          required:
+            - db
+        message:
+          type:
+            - string
+        success:
+          default: true
+          type:
+            - boolean
+      required:
+        - data
+      description: Health check status
+      example:
+        data:
+          db: up
+        message: OK
+        success: true
+    HealthWriteDeleteRequest:
+      type:
+        - object
+      properties:
+        email:
+          type:
+            - string
+          format: email
+      description: Data required for health write-delete test
+      example:
+        email: test@example.com
+    HealthWriteDeleteResponse:
+      type:
+        - object
+      properties:
+        data:
+          type:
+            - object
+          properties:
+            data:
+              type:
+                - object
+              properties:
+                email:
+                  type:
+                    - string
+                  format: email
+                id:
+                  type:
+                    - number
+                timeStamp:
+                  type:
+                    - string
+              required:
+                - id
+                - timeStamp
+            message:
+              type:
+                - string
+            success:
+              default: true
+              type:
+                - boolean
+          required:
+            - data
+        message:
+          type:
+            - string
+        success:
+          default: true
+          type:
+            - boolean
+      required:
+        - data
+      description: Database write/delete operation status
+      example:
+        data:
+          data:
+            email: test@example.com
+            id: 1
+            timeStamp: 2023-12-01T12:00:00.000Z
+          message: Database write and delete operations successful
+          success: true
+        message: OK
+        success: true
     UserCreateRequest:
       type:
         - object

@@ -1,15 +1,17 @@
-import { openApiBuilder, zodToOpenApi } from "#lib";
-import { dataSchemaToOpenApiResponse } from "#utils";
+import { zodToOpenApi, zodToOpenApiSuccessResponse } from "#lib";
 import { user } from "easy-fixer-shared";
 
-const userCreateRequest = zodToOpenApi(user.toCreate.schema);
-userCreateRequest.description = "Required data to create a user";
-userCreateRequest.example = {
-  email: "ha@ho.com",
-  name: "Test User",
-};
+zodToOpenApi({
+  description: "Required data to create a user",
+  example: {
+    email: "ha@ho.com",
+    name: "Test User",
+  },
+  name: "UserCreateRequest",
+  schema: user.toCreate.schema,
+});
 
-const userCreateResponse = dataSchemaToOpenApiResponse({
+zodToOpenApiSuccessResponse({
   dataSchema: user.created.schema,
   description: "User created successfully",
   example: {
@@ -17,7 +19,5 @@ const userCreateResponse = dataSchemaToOpenApiResponse({
     id: 1,
     name: "Test User",
   },
+  name: "UserCreateResponse",
 });
-
-openApiBuilder.addSchema("UserCreateRequest", userCreateRequest);
-openApiBuilder.addSchema("UserCreateResponse", userCreateResponse);
