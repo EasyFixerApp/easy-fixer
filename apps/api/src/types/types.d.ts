@@ -20,7 +20,8 @@ declare global {
     success: boolean;
   }
 
-  type SuccessResponse<T> = Omit<ApiResponse<T>, "error" | "success">;
+  type Prettify<T> = import("easy-fixer-shared").Prettify<T>;
 }
 
+// No need to export Prettify from here
 export {};

@@ -1,5 +1,4 @@
 import { ReasonPhrases } from "http-status-codes";
-import z from "zod";
 
 /**
  * @description
@@ -24,27 +23,11 @@ import z from "zod";
  * // }
  */
 export function createResponseJson<T>(
-  responseData: SuccessResponse<T>,
+  responseData: Omit<ApiResponse<T>, "error" | "success">,
 ): ApiResponse<T> {
   return {
     data: responseData.data,
     message: responseData.message || ReasonPhrases.OK,
     success: true,
   };
-}
-
-/**
- * @description
- * Create a Zod schema for API responses.
- * This schema is mainly used to create an openapi schema for the API response.
- * This schema can be used to ensure that the response data conforms to the expected format.
- * @param dataSchema - The Zod schema for the data object.
- * @returns A Zod schema for the API response.
- */
-export function createResponseSchema(dataSchema: z.ZodType) {
-  return z.object({
-    data: dataSchema,
-    message: z.string().optional(),
-    success: z.boolean().default(true),
-  });
 }

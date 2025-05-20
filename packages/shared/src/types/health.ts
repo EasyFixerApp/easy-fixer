@@ -1,9 +1,4 @@
-import {
-  toCreate,
-  created,
-  checked,
-  checkResponse,
-} from "../zSchema/health.js";
+import { toCreate, created, checked } from "../zSchema/health.js";
 import z from "zod";
 
 export namespace HealthTypes {
