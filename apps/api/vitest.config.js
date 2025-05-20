@@ -15,7 +15,7 @@ export default defineConfig({
     },
     env: {
       DATABASE_URL:
-        "postgresql://easy-fixer:my-password@localhost:5433/easy-fixer-test-db",
+        "postgresql://easy-fixer:my-password@localhost:5433/easy-fixer-db",
       NODE_ENV: "test",
     },
     silent: false,
