@@ -55,31 +55,6 @@
           "500": { "description": "Database operations failed" }
         }
       }
-    },
-    "/users/create": {
-      "post": {
-        "tags": ["Users"],
-        "summary": "Create a new user",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/UserCreateRequest" }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "User created successfully",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/UserCreateResponse" }
-              }
-            }
-          },
-          "400": { "description": "Bad request - validation error" }
-        }
-      }
     }
   },
   "components": {
@@ -130,39 +105,6 @@
             "id": 1,
             "timeStamp": "2023-12-01T12:00:00.000Z"
           },
-          "message": "OK",
-          "success": true
-        }
-      },
-      "UserCreateRequest": {
-        "type": ["object"],
-        "properties": {
-          "email": { "type": ["string"], "format": "email" },
-          "name": { "type": ["string"], "minLength": 1, "maxLength": 255 }
-        },
-        "required": ["email"],
-        "description": "Required data to create a user",
-        "example": { "email": "ha@ho.com", "name": "Test User" }
-      },
-      "UserCreateResponse": {
-        "type": ["object"],
-        "properties": {
-          "data": {
-            "type": ["object"],
-            "properties": {
-              "email": { "type": ["string"], "format": "email" },
-              "name": { "type": ["string"], "minLength": 1, "maxLength": 255 },
-              "id": { "type": ["number"] }
-            },
-            "required": ["email", "id"]
-          },
-          "message": { "type": ["string"] },
-          "success": { "default": true, "type": ["boolean"] }
-        },
-        "required": ["data"],
-        "description": "User created successfully",
-        "example": {
-          "data": { "email": "ha@ho.com", "id": 1, "name": "Test User" },
           "message": "OK",
           "success": true
         }
