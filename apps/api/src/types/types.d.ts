@@ -23,5 +23,4 @@ declare global {
   type Prettify<T> = import("easy-fixer-shared").Prettify<T>;
 }
 
-// No need to export Prettify from here
 export {};

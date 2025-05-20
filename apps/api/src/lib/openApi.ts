@@ -32,6 +32,7 @@ type ZodToOpenApiResponse = Prettify<
     dataSchema: z.ZodType;
   }
 >;
+
 /**
  * @description
  * Create a Zod schema for API responses.
@@ -56,7 +57,7 @@ export function createResponseSchema(dataSchema: z.ZodType) {
  * @param args.example - An example of the schema.
  * @returns void but adds the schema to the OpenAPI builder.
  */
-export const zodToOpenApi = (args: ZodToOpenApi) => {
+export const zodToOpenApi = (args: ZodToOpenApi): void => {
   const oasSchema = generateSchema(args.schema, true, "3.1");
   oasSchema.description = args.description;
   oasSchema.example = args.example;
@@ -72,7 +73,9 @@ export const zodToOpenApi = (args: ZodToOpenApi) => {
  * @param args.example - An example of the dataSchema and not the whole response.
  * @returns An OpenAPI response schema.
  */
-export const zodToOpenApiSuccessResponse = (args: ZodToOpenApiResponse) => {
+export const zodToOpenApiSuccessResponse = (
+  args: ZodToOpenApiResponse,
+): void => {
   const zodResponseSchema = createResponseSchema(args.dataSchema);
   zodToOpenApi({
     description: args.description,
