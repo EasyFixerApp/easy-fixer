@@ -1,23 +1,8 @@
 import config from "#config";
-import { createResponseSchema } from "#utils";
 import { generateSchema } from "@anatine/zod-openapi";
 import { OpenApiBuilder, OpenAPIObject } from "openapi3-ts/oas31";
 import swaggerJsdoc, { OAS3Definition } from "swagger-jsdoc";
 import z from "zod";
-
-export interface ZodToOpenApi extends OpenApiBase {
-  schema: z.ZodType;
-}
-
-export interface ZodToOpenApiResponse extends OpenApiBase {
-  dataSchema: z.ZodType;
-}
-
-interface OpenApiBase {
-  description: string;
-  example: unknown;
-  name: string;
-}
 
 // get specs from yaml-jsdoc annotated with @openapi in routes
 const commentSpecs = swaggerJsdoc(
@@ -30,8 +15,47 @@ export const openApiBuilder = new OpenApiBuilder(
   commentSpecs as unknown as OpenAPIObject,
 );
 
-// an openapi utility that converts zod schemas to openapi schemas
-// can be added then to the specs using openApiBuilder.addSchema
+interface OpenApiBase {
+  description: string;
+  example: unknown;
+  name: string;
+}
+
+type ZodToOpenApi = Prettify<
+  OpenApiBase & {
+    schema: z.ZodType;
+  }
+>;
+
+type ZodToOpenApiResponse = Prettify<
+  OpenApiBase & {
+    dataSchema: z.ZodType;
+  }
+>;
+/**
+ * @description
+ * Create a Zod schema for API responses.
+ * This schema is mainly used to create an openapi schema for the API response.
+ * This schema can be used to ensure that the response data conforms to the expected format.
+ * @param dataSchema - The Zod schema for the data object.
+ * @returns A Zod schema for the API response.
+ */
+export function createResponseSchema(dataSchema: z.ZodType) {
+  return z.object({
+    data: dataSchema,
+    message: z.string().optional(),
+    success: z.boolean().default(true),
+  });
+}
+
+/**
+ * Convert a Zod schema to an OpenAPI schema.
+ * @param args - The arguments for the OpenAPI schema.
+ * @param args.schema - The Zod schema to convert.
+ * @param args.description - The description of the schema.
+ * @param args.example - An example of the schema.
+ * @returns void but adds the schema to the OpenAPI builder.
+ */
 export const zodToOpenApi = (args: ZodToOpenApi) => {
   const oasSchema = generateSchema(args.schema, true, "3.1");
   oasSchema.description = args.description;
