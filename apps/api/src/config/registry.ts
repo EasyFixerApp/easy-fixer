@@ -7,5 +7,4 @@
  */
 
 import "../features/health/docs.js";
-import "../features/user/docs.js";
 import "./env.js";
