@@ -12,7 +12,7 @@ paths:
   /health/check:
     get:
       tags:
-        - Health
+        - API Health
       summary: Check if the server and database are running
       responses:
         "200":
@@ -26,7 +26,7 @@ paths:
   /health/write-delete:
     post:
       tags:
-        - Health
+        - API Health
       summary: Check database write and delete operations
       requestBody:
         required: true
@@ -43,7 +43,7 @@ paths:
                 $ref: "#/components/schemas/HealthWriteDeleteResponse"
         "500":
           description: Database operations failed
-  /v1/users/create:
+  /users/create:
     post:
       tags:
         - Users
@@ -115,32 +115,19 @@ components:
           type:
             - object
           properties:
-            data:
-              type:
-                - object
-              properties:
-                email:
-                  type:
-                    - string
-                  format: email
-                id:
-                  type:
-                    - number
-                timeStamp:
-                  type:
-                    - string
-              required:
-                - id
-                - timeStamp
-            message:
+            email:
               type:
                 - string
-            success:
-              default: true
+              format: email
+            id:
               type:
-                - boolean
+                - number
+            timeStamp:
+              type:
+                - string
           required:
-            - data
+            - id
+            - timeStamp
         message:
           type:
             - string
@@ -153,12 +140,9 @@ components:
       description: Database write/delete operation status
       example:
         data:
-          data:
-            email: test@example.com
-            id: 1
-            timeStamp: 2023-12-01T12:00:00.000Z
-          message: Database write and delete operations successful
-          success: true
+          email: test@example.com
+          id: 1
+          timeStamp: 2023-12-01T12:00:00.000Z
         message: OK
         success: true
     UserCreateRequest:
