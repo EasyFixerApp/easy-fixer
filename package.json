@@ -23,7 +23,6 @@
     "start": "concurrently \"npm run start -w api\" \"npm run start -w web\"",
     "// // 1": "",
     "check:staged": "npx lint-staged && npm run check:type -w api",
-    "prelint:check": "npm run build -w easy-fixer-shared",
     "lint:check": "concurrently \"npm run check:type -w api\" \"npm run lint -w api\" \"npm run lint -w web\"",
     "lint:fix": "concurrently \"npm run lint:fix -w api\" \"npm run lint:fix -w web\"",
     "format:check": "prettier --check .",
