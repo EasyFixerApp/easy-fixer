@@ -32,6 +32,7 @@
     "test:coverage": "cd apps/api && npm run test:coverage && cd ../web && npm run test:coverage",
     "// // 2": "",
     "preinstall": "npm run db:docker:setup -w api",
+    "postinstall": "npm run build -w easy-fixer-shared",
     "prepare": "husky && node scripts/setup-env.js && npm run db:setup -w api && node scripts/setup-nav.js",
     "clean:all": "concurrently \"npx rimraf node_modules\" \"npm run clean -w api\" \"npm run clean -w web\"",
     "clean:all:deep": "npx rimraf package-lock.json && npm run clean:all"
