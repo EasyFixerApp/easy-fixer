@@ -1,5 +1,1 @@
-import { health } from "./health.js";
-
-export const zSchema = {
-  health,
-};
+export * as health from "./health.js";
