@@ -1,4 +1,3 @@
-import { time, timeStamp } from "console";
 import z from "zod";
 
 export const checked = z.object({
@@ -13,9 +12,3 @@ export const created = toCreate.extend({
   id: z.number(),
   timeStamp: z.string(),
 });
-
-export const health = {
-  checked,
-  toCreate,
-  created,
-};

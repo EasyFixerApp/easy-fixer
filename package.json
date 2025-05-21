@@ -23,8 +23,8 @@
     "start": "concurrently \"npm run start -w api\" \"npm run start -w web\"",
     "// // 1": "",
     "check:staged": "npx lint-staged && npm run check:type -w api",
-    "lint:check": "concurrently \"npm run check:type -w api\" \"npm run lint -w api\" \"npm run lint -w web\"",
-    "lint:fix": "concurrently \"npm run lint:fix -w api\" \"npm run lint:fix -w web\"",
+    "lint:check": "concurrently \"npm run check:type -w api\" \"npm run lint -w api\" \"npm run lint -w web\" \"npm run lint -w easy-fixer-shared\" \"npm run check:type -w easy-fixer-shared\"",
+    "lint:fix": "concurrently \"npm run lint:fix -w api\" \"npm run lint:fix -w web\" \"npm run lint:fix -w easy-fixer-shared\"",
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
     "test": "npm run test -w api && npm run test -w web",
@@ -62,6 +62,9 @@
     ],
     "apps/web/**/*.{ts,tsx}": [
       "npm run lint -w web"
+    ],
+    "packages/shared/**/*.ts": [
+      "npm run lint -w easy-fixer-shared"
     ],
     "**/*.{ts,tsx,json,yml,yaml,md}": [
       "prettier --check"
