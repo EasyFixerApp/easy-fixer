@@ -23,11 +23,9 @@ const main = async () => {
 
     // Create API .env file
     await createEnvFile(apiDir, API_ENV_CONTENT);
-    console.log("✅ Created .env file in API directory");
 
     // Create Web .env file
     await createEnvFile(webDir, WEB_ENV_CONTENT);
-    console.log("✅ Created .env file in Web directory");
 
     console.log("\n🎉 Environment setup complete!");
   } catch (error) {
@@ -53,16 +51,28 @@ const createEnvFile = async (directory, content) => {
   // Check if file already exists
   try {
     await fs.access(envFilePath);
-    // Back up existing file
+
+    // Read existing file content and compare
+    const existingContent = await fs.readFile(envFilePath, "utf8");
+    if (existingContent === content) {
+      console.log(`ℹ️  .env file already up-to-date. Skipping: ${envFilePath}`);
+      return;
+    }
+
+    // Content is different, back up existing file
     const backupPath = `${envFilePath}.backup.${Date.now()}`;
     await fs.copyFile(envFilePath, backupPath);
     console.log(`⚠️  Existing .env file backed up to ${backupPath}`);
-  } catch {
+  } catch (error) {
     // File doesn't exist, which is fine
+    if (error.code !== "ENOENT") {
+      throw error; // Rethrow if it's not a "file not found" error
+    }
   }
 
   // Write the new .env file
   await fs.writeFile(envFilePath, content, "utf8");
+  console.log(`✅ Created ${envFilePath}`);
 };
 
 // Run the script
