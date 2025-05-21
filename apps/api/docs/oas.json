@@ -6,8 +6,14 @@
   },
   "openapi": "3.1.1",
   "servers": [
-    { "description": "Local Server", "url": "http://localhost:4000/api/v1" },
-    { "description": "Production Server", "url": "" }
+    {
+      "description": "Local Server",
+      "url": "http://localhost:4000/api/v1"
+    },
+    {
+      "description": "Production Server",
+      "url": ""
+    }
   ],
   "paths": {
     "/health/check": {
@@ -19,11 +25,15 @@
             "description": "Both server and database are operational",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HealthCheckResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCheckResponse"
+                }
               }
             }
           },
-          "500": { "description": "Server or database is not operational" }
+          "500": {
+            "description": "Server or database is not operational"
+          }
         }
       }
     },
@@ -52,7 +62,9 @@
               }
             }
           },
-          "500": { "description": "Database operations failed" }
+          "500": {
+            "description": "Database operations failed"
+          }
         }
       }
     }
@@ -65,22 +77,43 @@
           "data": {
             "type": ["object"],
             "properties": {
-              "db": { "type": ["string"], "enum": ["up", "down"] }
+              "db": {
+                "type": ["string"],
+                "enum": ["up", "down"]
+              }
             },
             "required": ["db"]
           },
-          "message": { "type": ["string"] },
-          "success": { "default": true, "type": ["boolean"] }
+          "message": {
+            "type": ["string"]
+          },
+          "success": {
+            "default": true,
+            "type": ["boolean"]
+          }
         },
         "required": ["data"],
         "description": "Health check status",
-        "example": { "data": { "db": "up" }, "message": "OK", "success": true }
+        "example": {
+          "data": {
+            "db": "up"
+          },
+          "message": "OK",
+          "success": true
+        }
       },
       "HealthWriteDeleteRequest": {
         "type": ["object"],
-        "properties": { "email": { "type": ["string"], "format": "email" } },
+        "properties": {
+          "email": {
+            "type": ["string"],
+            "format": "email"
+          }
+        },
         "description": "Data required for health write-delete test",
-        "example": { "email": "test@example.com" }
+        "example": {
+          "email": "test@example.com"
+        }
       },
       "HealthWriteDeleteResponse": {
         "type": ["object"],
@@ -88,14 +121,26 @@
           "data": {
             "type": ["object"],
             "properties": {
-              "email": { "type": ["string"], "format": "email" },
-              "id": { "type": ["number"] },
-              "timeStamp": { "type": ["string"] }
+              "email": {
+                "type": ["string"],
+                "format": "email"
+              },
+              "id": {
+                "type": ["number"]
+              },
+              "timeStamp": {
+                "type": ["string"]
+              }
             },
             "required": ["id", "timeStamp"]
           },
-          "message": { "type": ["string"] },
-          "success": { "default": true, "type": ["boolean"] }
+          "message": {
+            "type": ["string"]
+          },
+          "success": {
+            "default": true,
+            "type": ["boolean"]
+          }
         },
         "required": ["data"],
         "description": "Database write/delete operation status",

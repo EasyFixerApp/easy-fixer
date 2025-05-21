@@ -2,7 +2,7 @@
   "name": "easy-fixer",
   "version": "1.0.0",
   "private": true,
-  "description": "This is a monorepo that contains all the apps related to Easy Fixer, which is a platform to connect clients with in-your-location service providers such as handymans.",
+  "description": "This is a monorepo that contains all the apps related to Easy Fixer, which is a platform to connect clients with in-your-location service providers such as handymen.",
   "homepage": "https://github.com/EasyFixerApp/easy-fixer#readme",
   "bugs": {
     "url": "https://github.com/EasyFixerApp/easy-fixer/issues"
@@ -32,9 +32,12 @@
     "// // 2": "",
     "preinstall": "npm run db:docker:setup -w api",
     "postinstall": "npm run build -w easy-fixer-shared",
-    "prepare": "husky && node scripts/setup-env.js && npm run db:setup -w api && node scripts/setup-nav.js",
+    "prepare": "husky && npm run setup:env && npm run db:setup -w api && npm run setup:nav",
+    "// // 2.1": "",
     "clean:all": "concurrently \"npx rimraf node_modules\" \"npm run clean -w api\" \"npm run clean -w web\"",
-    "clean:all:deep": "npx rimraf package-lock.json && npm run clean:all"
+    "clean:all:deep": "npx rimraf package-lock.json && npm run clean:all",
+    "setup:nav": "tsx scripts/setup-nav.ts",
+    "setup:env": "tsx scripts/setup-env.js"
   },
   "imports": {
     "#easy-fixer/*": "./packages/*/src/index.js"
@@ -50,6 +53,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
+    "tsx": "^4.19.4",
     "vitest": "^3.1.3"
   },
   "lint-staged": {

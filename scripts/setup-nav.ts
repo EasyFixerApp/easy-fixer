@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import fs from "fs/promises";
+import * as fsSync from "fs";
 import path from "path";
 import os from "os";
 
@@ -49,7 +50,7 @@ const determineShellConfigFile = () => {
     // Try bash_profile first, fall back to bashrc
     const bashProfile = path.join(homeDir, ".bash_profile");
     try {
-      fs.accessSync(bashProfile);
+      fsSync.accessSync(bashProfile);
       return bashProfile;
     } catch {
       return path.join(homeDir, ".bashrc");
