@@ -30,7 +30,7 @@
     "test": "npm run test -w api && npm run test -w web",
     "test:coverage": "cd apps/api && npm run test:coverage && cd ../web && npm run test:coverage",
     "// // 2": "",
-    "preinstall": "npm run db:docker:setup -w api",
+    "docker:setup": "npm run db:docker:setup -w api",
     "postinstall": "npm run build -w easy-fixer-shared",
     "prepare": "husky && npm run setup:env && npm run db:setup -w api && npm run setup:nav",
     "// // 2.1": "",

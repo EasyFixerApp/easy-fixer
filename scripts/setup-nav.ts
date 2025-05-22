@@ -19,6 +19,8 @@ const aliases = {
  * Main function that orchestrates the setup process
  */
 const main = async () => {
+  logSeparator("Easy Fixer Navigation Shortcuts Setup");
+
   console.log("Setting up Easy Fixer navigation shortcuts...");
   const projectRoot = determineProjectRoot();
   const shellConfigFile = determineShellConfigFile();
@@ -26,6 +28,18 @@ const main = async () => {
 
   await updateShellConfig(shellConfigFile, configBlock);
   displayInstructions(shellConfigFile);
+
+  logSeparator("Navigation Shortcuts Setup completed successfully!");
+};
+
+/**
+ * Log a section separator with title
+ */
+const logSeparator = (title) => {
+  const line = "=".repeat(50);
+  console.log(`\n${line}`);
+  console.log(`  ${title}`);
+  console.log(`${line}\n`);
 };
 
 /**
