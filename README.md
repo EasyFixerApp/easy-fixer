@@ -11,21 +11,46 @@
 
 # Easy Fixer
 
-Smart Service Request Management System, Easy Fixer is a platform that connects people who need building repairs with nearby skilled workers. It intelligently matches service requests with available workers based on proximity (within 40km) to ensure quick problem resolution and provide job opportunities for local craftsmen.
+Easy Fixer is an intelligent platform designed to seamlessly connect individuals in need of on-site services—such as home or building repairs—with nearby skilled professionals. By leveraging real-time location data, the system efficiently matches service requests with available workers in the area. This not only ensures rapid problem resolution for users but also creates valuable job opportunities for local service providers.
 
 ## Table of Contents
 
+- [✨ Key Features](#-key-features)
 - [🚀 Quick Start](#-quick-start)
 - [📚 API Documentation](#-api-documentation)
-- [✨ Features](#-features)
 - [🛠 Tech Stack](#-tech-stack)
 - [🏗 Project Structure](#-project-structure)
 - [🏛 Architecture Principles](#-architecture-principles)
 - [💻 Development](#-development)
-- [🧪 Testing](#-testing)
-- [🔄 User Flows](#-user-flows)
 - [👥 Join the Team](#-join-the-team)
 - [📄 License](#-license)
+
+## ✨ Key Features
+
+### 👤 Clients
+
+- **Seamless Onboarding**: Clients sign up and quickly complete a guided onboarding process.
+- **Effortless Service Requests**: Submit detailed service requests with descriptions, location, and optional images.
+- **Real-Time Matching**: Instantly get matched with nearby skilled workers based on service needs and availability.
+- **Service Tracking**: Monitor the status of requests from creation to completion.
+- **Feedback System**: Mark jobs as complete and rate workers to maintain service quality.
+
+---
+
+### 🛠️ Workers
+
+- **Profile Setup**: Sign up, create a professional profile, and define your service radius and availability.
+- **Job Discovery & Matching**: Browse open jobs or receive automatic job matches tailored to your skills and location.
+- **Task Execution**: Accept assignments, complete them, and upload evidence of completion.
+- **Earnings & Reviews**: Track your earnings, receive client feedback, and manage your work history.
+
+---
+
+### 🛡️ Admins
+
+- **Platform Oversight**: Use dashboards to monitor real-time platform activity and key metrics.
+- **User & Dispute Management**: Handle user accounts, resolve disputes, and oversee request statuses.
+- **System Configuration**: Manage service categories, platform settings, and access in-depth reporting tools.
 
 ## 🚀 Quick Start
 
@@ -82,36 +107,24 @@ code ./apps/api/docs/oas.json
 code ./apps/api/docs/oas.yaml
 ```
 
-## ✨ Features
-
-### For Clients
-
-- **Create service requests** with problem descriptions and optional images
-- **Find nearby workers** based on your location and service needs
-- **Track request status** from creation to completion
-- **Rate and review** workers after service completion
-
-### For Workers
-
-- **Set your availability and service radius**
-- **Browse and apply for jobs** in your area
-- **Get automatically matched** to relevant service requests
-- **Track earnings and manage your profile**
-
-### For Admins
-
-- **Monitor system performance** with comprehensive dashboards
-- **Manage users, disputes and service categories**
-- **Access analytics and reporting tools**
-
 ## 🛠 Tech Stack
+
+### Common
+
+- **TypeScript** - Type safety and developer experience
+- **Vitest** - Testing framework
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **Husky** - Git hooks
+- **GitHub Actions** - Enforcing standards and CI/CD
 
 ### Frontend
 
-- **Next.js 15** - React framework with server-side rendering
-- **React 19** - UI library
+- **Next.js 15/React 19** - React framework with server-side rendering
 - **Tailwind CSS 4** - Utility-first CSS framework
-- **TypeScript** - Type safety and developer experience
+- **React Query** - Data fetching and server state management
+- **Axios** - HTTP client for API requests
+- **React Hook Form** - Form handling
 
 ### Backend
 
@@ -120,13 +133,9 @@ code ./apps/api/docs/oas.yaml
 - **PostgreSQL** - Relational database (via Docker)
 - **Zod** - TypeScript-first schema validation
 - **Swagger/OpenAPI** - API documentation
-
-### Testing & Quality
-
-- **Vitest** - Testing framework
-- **ESLint** - Code linting
-- **Prettier** - Code formatting
-- **Husky** - Git hooks
+- **Winston** - Logging library
+- **Helmet** - Security middleware
+- **Express Rate Limit** - API rate limiting
 
 ## 🏗 Project Structure
 
@@ -137,9 +146,12 @@ This project uses a monorepo structure organized into three main sections:
 ```plaintext
 easy-fixer/
 ├── apps/               # Application code (API and web)
-├── docs/               # Project documentation, standards, ...
-├── packages/           # Shared code packages
+│   ├── web/            # Next App
+│   └── api/            # Express App
+├── packages/           #
+│   └── shared/         # Shared code package
 ├── scripts/            # Helper scripts
+├── docs/               # Project documentation, standards, ...
 ├── package.json        # Root package configuration
 ├── .nvmrc              # Node version specification
 ├── .npmrc              # NPM configuration
@@ -242,7 +254,7 @@ The project pragmatically encourages modularity and discourages tight coupling b
 
 ### Core Organization Principles
 
-The project follows a **feature-first** architecture (also known as vertical slicing or modular architecture) that prioritizes organizing code by domain features rather than technical layers.
+The project follows a **feature-first** architecture (also known as vertical slicing or modular architecture) that prioritizes organizing code by domain/ features/use cases rather than technical layers.
 
 - **Features over Technical Layers**: Code is primarily organized by feature/domain, then by technical concern within each feature
 
@@ -299,20 +311,7 @@ This architecture promotes:
 
 ## 💻 Development
 
-**Running commands in workspaces:**
-
-Most commands can be run in specific workspaces by adding `-w` followed by the workspace name:
-
-```bash
-# Run a command in the workspace
-npm run [command]
-
-# Run a command in the API workspace
-npm run [command] -w api
-
-# Run a command in the web workspace
-npm run [command] -w web
-```
+For more information see [CONTRIBUTING](./docs/CONTRIBUTING.md)
 
 For moving between the app directories you can use the following installed commands:
 
@@ -322,71 +321,48 @@ go-api
 go-web
 ```
 
-**Main development commands:**
+Most scripts can be run in specific workspaces by adding `-w` followed by the workspace name:
 
 ```bash
-# Start both frontend and backend (automatically starts Docker)
-npm run dev
+# Run a script in the root workspace
+npm run [script]
 
-# Start only the API (automatically starts Docker)
-npm run dev -w api
-
-# Start only the web app
-npm run dev -w web
+# Run a command in specific workspace [web, api, easy-fixer-shared]
+npm run [script] -w [name]
 ```
 
-### Code Quality
+**Main scripts:**
 
 ```bash
-# Check the staged files
-npm run check:staged # will run automatically on a commit
+# Development
+npm run dev                 # Run the project in development mode
+npm run build               # Build all packages and applications
+npm run start               # Start all applications in production mode
 
-# Run linting checks
-npm run lint:check
+# Testing & Quality
+npm run test                # Run all tests
+npm run test:coverage       # Run tests with coverage report
+npm run test:watch          # Run tests in watch mode for Test Driven Development
+npm run test:ui             # Run tests with vitest user interface
 
-# Fix linting issues
-npm run lint:fix
+npm run lint:check          # Check linting in all packages
+npm run lint:fix            # Fix linting issues in all packages
+npm run format:check        # Check formatting with Prettier
+npm run format:fix          # Fix formatting issues with Prettier
+npm run check:staged        # Checks quality only for staged files, auto on commit
 
-# Check code formatting
-npm run format:check
+# Database
+npm run docker:setup        # Set up development Docker container for database
+npm run db:setup -w api     # Initialize and set up the database
 
-# Fix formatting issues
-npm run format:fix
+# Documentation
+npm run oas:generate -w api # Generate OpenAPI documentation
+
+# Environment & Cleanup
+npm run setup:env           # Set up development environment variables
+npm run setup:nav           # Set up navigation helpers
+npm run clean:all           # Clean all build artifacts and node_modules
 ```
-
-## 🧪 Testing
-
-```bash
-# Run all tests
-npm test
-
-# Run tests with coverage
-npm run test:coverage
-```
-
-## 🔄 User Flows
-
-### Client Flow
-
-1. Sign up and complete onboarding
-2. Create service request with details and location
-3. Review and select from matched workers
-4. Track service progress
-5. Mark as complete and provide rating
-
-### Worker Flow
-
-1. Sign up and create professional profile
-2. Set availability and service area
-3. Browse jobs or receive match notifications
-4. Accept and complete assignments
-5. Upload completion evidence and receive payment
-
-### Admin Flow
-
-1. Monitor service activity through dashboards
-2. Manage users and handle disputes
-3. Configure system settings and categories
 
 ## 👥 Join the Team
 
