@@ -40,30 +40,25 @@ Click to download: [node](https://nodejs.org/en/download), [nvm](https://github.
 ### Setup Guide
 
 1. **Clone the repository**
+2. **Use correct Node version**
+3. **Setup the DB local server**
+4. **Install dependencies**
+5. **Start development environment**
 
    ```bash
    git clone https://github.com/EasyFixerApp/easy-fixer.git
    cd easy-fixer
-   ```
 
-2. **Use correct Node version**
-
-   ```bash
-   # If you have nvm installed
+   # If you have nvm installed or make sure you've the correct version
    nvm use
-   ```
 
-3. **Install dependencies**
+    # If you're running your own local db server, add the url to /api/.env
+   npm run docker:setup
 
-   ```bash
    # Should generate all needed additional files
    npm install
-   ```
 
-4. **Start development environment**
-
-   ```bash
-   # This automatically starts the Docker container with PostgreSQL
+   # This should run the project locally with all its dependencies
    npm run dev
    ```
 

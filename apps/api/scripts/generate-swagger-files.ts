@@ -8,6 +8,10 @@ import path from "path";
 
 const { files } = config.oas.provide;
 
+const logSeparator = () => logger.info("=".repeat(50));
+
+logSeparator();
+
 // Create directory if it doesn't exist
 const outputDir = path.resolve(files.dir);
 
@@ -85,3 +89,5 @@ if (files.yaml.create) {
     logger.info(`✅ Created ${yamlFilePath}`);
   }
 }
+
+logSeparator();
