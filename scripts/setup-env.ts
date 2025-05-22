@@ -39,8 +39,8 @@ const main = async () => {
     // Create Web .env file
     await createEnvFile(webDir, WEB_ENV_CONTENT);
 
-    logSeparator("Environment Setup Complete");
     console.log("🎉 Environment setup completed successfully!");
+    logSeparator("Environment Setup Complete");
   } catch (error) {
     console.error("Error setting up environment files:", error);
     process.exit(1);

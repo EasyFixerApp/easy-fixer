@@ -45,22 +45,22 @@ Click to download: [node](https://nodejs.org/en/download), [nvm](https://github.
 4. **Install dependencies**
 5. **Start development environment**
 
-   ```bash
-   git clone https://github.com/EasyFixerApp/easy-fixer.git
-   cd easy-fixer
+```bash
+git clone https://github.com/EasyFixerApp/easy-fixer.git
+cd easy-fixer
 
-   # If you have nvm installed or make sure you've the correct version
-   nvm use
+# If you have nvm installed or make sure you've the correct version
+nvm use
 
-    # If you're running your own local db server, add the url to /api/.env
-   npm run docker:setup
+# If you're running your own local db server, add the url to /api/.env
+npm run docker:setup
 
-   # Should generate all needed additional files
-   npm install
+# Should generate all needed additional files
+npm install
 
-   # This should run the project locally with all its dependencies
-   npm run dev
-   ```
+# This should run the project locally with all its dependencies
+npm run dev
+```
 
 That's it! The API will be available at <http://localhost:4000> and the web app at <http://localhost:3000>.
 
