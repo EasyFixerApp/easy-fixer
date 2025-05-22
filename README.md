@@ -35,16 +35,12 @@ Easy Fixer is an intelligent platform designed to seamlessly connect individuals
 - **Service Tracking**: Monitor the status of requests from creation to completion.
 - **Feedback System**: Mark jobs as complete and rate workers to maintain service quality.
 
----
-
 ### 🛠️ Workers
 
 - **Profile Setup**: Sign up, create a professional profile, and define your service radius and availability.
 - **Job Discovery & Matching**: Browse open jobs or receive automatic job matches tailored to your skills and location.
 - **Task Execution**: Accept assignments, complete them, and upload evidence of completion.
 - **Earnings & Reviews**: Track your earnings, receive client feedback, and manage your work history.
-
----
 
 ### 🛡️ Admins
 
