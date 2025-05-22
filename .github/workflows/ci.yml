@@ -25,7 +25,7 @@ jobs:
           cache: "npm"
 
       - name: Setup Docker DB
-        run: npm run db:docker:setup
+        run: npm run docker:setup
 
       - name: Install dependencies
         run: npm ci
