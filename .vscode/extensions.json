@@ -2,6 +2,7 @@
   "recommendations": [
     "42crunch.vscode-openapi",
     "aaron-bond.better-comments",
+    "bradlc.vscode-tailwindcss",
     "davidanson.vscode-markdownlint",
     "dbaeumer.vscode-eslint",
     "donjayamanne.githistory",
@@ -10,6 +11,7 @@
     "ms-vscode.vscode-typescript-next",
     "prisma.prisma",
     "redhat.vscode-yaml",
+    "stivo.tailwind-fold",
     "streetsidesoftware.code-spell-checker",
     "yoavbls.pretty-ts-errors"
   ]
