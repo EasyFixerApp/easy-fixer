@@ -24,6 +24,12 @@
     "typeRoots": ["../../node_modules/"],
     "types": ["vitest/globals"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "tailwind.config.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "tailwind.config.mjs"
+  ],
   "exclude": ["node_modules"]
 }
