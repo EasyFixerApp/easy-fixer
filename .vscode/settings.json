@@ -11,5 +11,6 @@
     "tsparser",
     "turbopack",
     "uuidv"
-  ]
+  ],
+  "postman.settings.dotenv-detection-notification-visibility": false
 }

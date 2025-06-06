@@ -1,27 +1,31 @@
-/* web/src/app/globals.css */
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: #51a9f5;
-  --secondary: #f55a5c;
-  --error: #f43f5e;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Tailwind Directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Plus Jakarta Sans";
+    src: url("/fonts/PlusJakartaSans-VariableFont_wght.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+  }
+
+  :root {
+    --background: #f8fafb; /* Light gray */
+    --foreground: #1f2937; /* Charcoal */
+  }
+
+  /* Dark mode (optional) */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: #0a0a0a;
+      --foreground: #ededed;
+    }
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: "Plus Jakarta Sans", sans-serif;
+  }
+}
