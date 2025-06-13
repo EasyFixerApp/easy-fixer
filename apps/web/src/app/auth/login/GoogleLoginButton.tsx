@@ -1,23 +1,27 @@
 "use client";
+import { signInWithGoogle } from "@/lib/supabase/authServices";
 
-import { supabase } from "@/lib/supabase/client";
+interface GoogleLoginButtonProps {
+  role?: "client" | "provider";
+}
 
-export default function GoogleLoginButton() {
-  const handleGoogleLogin = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    });
-    if (error) {
-      alert("Google login failed:" + error.message);
+export default function GoogleLoginButton({ role }: GoogleLoginButtonProps) {
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle(role);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        alert(err.message);
+      } else {
+        alert("Failed to initiate Google sign-in");
+      }
     }
   };
+
   return (
     <button
-      onClick={handleGoogleLogin}
-      className="w-full bg-red-600 text-white p-2 rounded mt-4"
+      onClick={handleGoogleSignIn}
+      className="w-full bg-red-500 hover:bg-red-600 text-white p-3 rounded-md transition duration-200"
     >
       Continue with Google
     </button>

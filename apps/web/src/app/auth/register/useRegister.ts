@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { supabase } from "@/lib/supabase/client";
+import { signUpWithEmail } from "@/lib/supabase/authServices";
 
 export const useRegister = () => {
   const [loading, setLoading] = useState(false);
@@ -10,22 +10,19 @@ export const useRegister = () => {
     setLoading(true);
     setError(null);
 
-    const { data, error: supabaseError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { role },
-      },
-    });
-
-    setLoading(false);
-
-    if (supabaseError) {
-      setError(supabaseError.message);
+    try {
+      const data = await signUpWithEmail(email, password, role);
+      return data;
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Something went wrong");
+      }
       return null;
+    } finally {
+      setLoading(false);
     }
-
-    return data;
   };
 
   return { register, loading, error };

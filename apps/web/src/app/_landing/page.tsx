@@ -11,14 +11,14 @@ export default function LandingPage() {
       </p>
       <div className="flex gap-4">
         <Link
-          href="/login"
+          href="/auth/login"
           aria-label="Login to your account"
           className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
         >
           Login
         </Link>
         <Link
-          href="/register"
+          href="/auth/register"
           aria-label="Create a new account"
           className="bg-gray-200 text-gray-800 px-6 py-2 rounded hover:bg-gray-300"
         >

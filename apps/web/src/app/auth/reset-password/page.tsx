@@ -1,7 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase/client";
+import {
+  restoreSessionFromUrl,
+  updatePassword,
+} from "@/lib/supabase/authServices";
 
 export default function ResetPasswordPage() {
   const [newPassword, setNewPassword] = useState("");
@@ -15,26 +18,25 @@ export default function ResetPasswordPage() {
     const refresh_token = params.get("refresh_token");
 
     if (access_token && refresh_token) {
-      supabase.auth
-        .setSession({ access_token, refresh_token })
-        .then(({ error }) => {
-          if (error) setMessage("Failed to restore session: " + error.message);
-        });
+      restoreSessionFromUrl(access_token, refresh_token).catch((err) =>
+        setMessage("Failed to restore session: " + err.message),
+      );
     }
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const { error } = await supabase.auth.updateUser({
-      password: newPassword,
-    });
-
-    if (error) {
-      setMessage(error.message);
-    } else {
+    try {
+      await updatePassword(newPassword);
       setMessage("Password changed successfully! Redirecting to login...");
       setTimeout(() => router.push("/auth/login"), 3000);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setMessage(err.message);
+      } else {
+        setMessage("An unknown error occurred.");
+      }
     }
   };
 

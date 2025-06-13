@@ -3,19 +3,26 @@ import { useState } from "react";
 import { useLogin } from "./useLogin";
 import Link from "next/link";
 import GoogleLoginButton from "./GoogleLoginButton";
+import AuthRedirect from "@/components/AuthRedirect";
+
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginSuccess, setLoginSuccess] = useState(false);
   const { login, loading, error } = useLogin();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = await login(email, password);
     if (result) {
-      alert("Logged in successfully!");
+      setLoginSuccess(true);
     }
   };
+
   return (
     <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
+      {loginSuccess && <AuthRedirect />}
+
       <input
         type="email"
         placeholder="Email"
@@ -40,6 +47,7 @@ export default function LoginForm() {
       >
         {loading ? "Logging in .." : "Login"}
       </button>
+
       <div className="text-center mt-2">
         <Link
           href="/auth/forgot-password"

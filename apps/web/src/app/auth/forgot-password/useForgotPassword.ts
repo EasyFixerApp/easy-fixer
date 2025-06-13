@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { supabase } from "@/lib/supabase/client";
+import { sendPasswordResetLink } from "@/lib/supabase/authServices";
 
 export const useForgotPassword = () => {
   const [loading, setLoading] = useState(false);
@@ -12,16 +12,18 @@ export const useForgotPassword = () => {
     setError(null);
     setSuccess(false);
 
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "http://localhost:3000/auth/reset-password",
-    });
-
-    setLoading(false);
-
-    if (error) {
-      setError(error.message);
-    } else {
+    try {
+      await sendPasswordResetLink(email);
       setSuccess(true);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Something went wrong");
+      }
+      return null;
+    } finally {
+      setLoading(false);
     }
   };
 

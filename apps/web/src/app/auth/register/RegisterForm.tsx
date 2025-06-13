@@ -114,7 +114,7 @@ export default function RegisterForm() {
           <div className="flex-grow border-t border-gray-300"></div>
         </div>
 
-        <GoogleLoginButton />
+        <GoogleLoginButton role={role} />
       </div>
     </>
   );
