@@ -3,6 +3,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRegister } from "./useRegister";
 import GoogleLoginButton from "../login/GoogleLoginButton";
+
+import Logo from "../../../components/logo";
+import Back from "../../../components/Backbutton";
+
 export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,97 +28,96 @@ export default function RegisterForm() {
 
   return (
     <>
-      <div className="max-w-md mx-auto p-6 bg-white rounded-lg">
-        <h1 className="text-2xl font-bold text-gray-800 mb-1">EasyFix</h1>
-        <h3 className="text-lg font-semibold text-gray-700 mb-6">
+      <Logo />
+
+      <div className="bg-[#cce6ff] rounded-xl w-[429px] h-[544px] mx-auto my-20 mt-0 p-8 shadow-md">
+        <h3 className="text-center text-2xl font-bold mb-5 text-black">
           Create a new account
         </h3>
 
-        <div className="flex gap-4 mb-6">
-          <label className="flex items-center space-x-2 cursor-pointer">
+        <div className="flex items-center gap-3 mb-5 text-sm text-[#222] font-medium w-[100%] justify-between">
+          I am a
+          <label className="flex items-center gap-1 font-semibold cursor-pointer">
             <input
               type="radio"
               name="role"
               value="client"
               checked={role === "client"}
               onChange={() => setRole("client")}
-              className="h-4 w-4 text-[#1a8cff] focus:ring-[#1a8cff]"
+              className="cursor-pointer"
             />
-            <span className="text-gray-700">Client</span>
+            <span>Client</span>
           </label>
-          <label className="flex items-center space-x-2 cursor-pointer">
+          <label className="flex items-center gap-1 font-semibold cursor-pointer">
             <input
               type="radio"
               name="role"
               value="provider"
               checked={role === "provider"}
               onChange={() => setRole("provider")}
-              className="h-4 w-4 text-[#1a8cff] focus:ring-[#1a8cff]"
+              className="cursor-pointer"
             />
-            <span className="text-gray-700">Service Provider</span>
+            <span>Service Provider</span>
           </label>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <input
-              type="email"
-              placeholder="E-mail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1a8cff] focus:border-transparent"
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1a8cff] focus:border-transparent"
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              value={confirm}
-              onChange={(e) => setConfirm(e.target.value)}
-              required
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1a8cff] focus:border-transparent"
-            />
-          </div>
+          <input
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-sm"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-sm"
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirm}
+            onChange={(e) => setConfirm(e.target.value)}
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-sm"
+          />
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && (
+            <p className="text-red-600 text-sm font-semibold">{error}</p>
+          )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#1a8cff] hover:bg-[#0073e6] text-white p-3 rounded-md transition duration-200 disabled:opacity-50"
+            className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-md text-base font-semibold shadow-md transition"
           >
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-gray-600">
+        <div className="text-center mt-4 text-sm text-gray-700">
           Already have an account?{" "}
           <Link
             href="/auth/login"
-            className="text-[#1a8cff] hover:underline font-medium"
+            className="text-blue-600 font-medium hover:underline"
           >
             Login
           </Link>
         </div>
 
-        <div className="flex items-center my-6">
-          <div className="flex-grow border-t border-gray-300"></div>
-          <span className="mx-4 text-gray-500">or</span>
-          <div className="flex-grow border-t border-gray-300"></div>
+        <div className="flex items-center my-6 text-gray-600 text-sm">
+          <div className="flex-grow h-[1px] bg-gray-300"></div>
+          <span className="mx-3">or</span>
+          <div className="flex-grow h-[1px] bg-gray-300"></div>
         </div>
 
         <GoogleLoginButton role={role} />
+        <Back />
       </div>
     </>
   );

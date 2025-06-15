@@ -37,7 +37,7 @@ export default function OAuthCallback() {
           if (role) {
             setHasRole(true);
           } else {
-            console.warn("User role is missing");
+            router.replace("/auth/register");
           }
         }
 
@@ -52,5 +52,4 @@ export default function OAuthCallback() {
 
   if (!readyToRedirect) return <p>Loading...</p>;
   if (hasRole) return <AuthRedirect />;
-  return <p>Role not found. Please contact support.</p>;
 }
