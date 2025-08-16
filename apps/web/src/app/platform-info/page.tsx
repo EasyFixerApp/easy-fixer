@@ -4,11 +4,11 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-8">
       <div className="max-w-3xl mx-auto text-center">
-        <h1 className="text-4xl font-bold text-gray-800 mb-6">
+        <h1 className="text-4xl font-bold text-primary mb-6">
           Easy Fixer Platform
         </h1>
 
-        <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+        <p className="text-lg text-accent2 mb-8 max-w-2xl mx-auto">
           Smart Service Request Management System connecting people who need
           building repairs with nearby skilled workers.
         </p>
